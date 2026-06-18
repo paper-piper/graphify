@@ -32,9 +32,3 @@ export function getAllNodePaths(
 
     return valid_paths;
 }
-
-buildAdjacencyList().then(adj => {
-  const source = "00000000-0000-0000-0000-000000000004" as NodeId;
-  const target = "00000000-0000-0000-0000-000000000001" as NodeId;
-  console.log(getAllNodePaths(adj, source, target));
-});

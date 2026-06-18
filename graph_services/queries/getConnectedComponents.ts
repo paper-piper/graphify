@@ -33,7 +33,3 @@ function getNeighberhood(
 
     return visited;
 }
-
-buildAdjacencyList().then(adj => {
-  console.log(getConnectedComponents(adj));
-});

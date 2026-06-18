@@ -42,7 +42,3 @@ function isCircleNeighberhood(
 
     return [visited, false];
 }
-
-buildAdjacencyList().then(adj => {
-    console.log(hasCycle(adj));
-});

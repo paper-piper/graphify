@@ -1,5 +1,5 @@
-import { Edge, Node } from "../../graph_services/graph.types";
-import { db } from "../buildDb";
+import { Edge, Node } from "../graph/graph.types";
+import { db } from "../db/buildDb";
 
 export async function get_nodes_and_edges(): Promise<[Node[], Edge[]]> {
     const nodes = await db.selectFrom('nodes').selectAll().execute() as Node[];

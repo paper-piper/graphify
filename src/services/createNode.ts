@@ -1,5 +1,5 @@
-import { NodeId, NodeValue } from "../../graph_services/graph.types";
-import { db } from "../buildDb";
+import { NodeId, NodeValue } from "../graph/graph.types";
+import { db } from "../db/buildDb";
 
 export async function create_node(value: NodeValue = ""): Promise<NodeId> {
     const results = await db

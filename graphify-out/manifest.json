@@ -1,0 +1,172 @@
+{
+  "/Users/yoyo/Documents/graphify/.claude/settings.local.json": {
+    "mtime": 1781782976.9720938,
+    "ast_hash": "1295e754196641974e50581cee1ab98f",
+    "semantic_hash": "1295e754196641974e50581cee1ab98f"
+  },
+  "/Users/yoyo/Documents/graphify/config.ts": {
+    "mtime": 1781695714.357624,
+    "ast_hash": "657c9c9ee700ddd247d6c5bd07ed3f3e",
+    "semantic_hash": "657c9c9ee700ddd247d6c5bd07ed3f3e"
+  },
+  "/Users/yoyo/Documents/graphify/package.json": {
+    "mtime": 1781695716.865497,
+    "ast_hash": "0ac30ae4b7ebbf6dacfd5dc253c35bef",
+    "semantic_hash": "0ac30ae4b7ebbf6dacfd5dc253c35bef"
+  },
+  "/Users/yoyo/Documents/graphify/src/app.ts": {
+    "mtime": 1781783930.2340546,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "/Users/yoyo/Documents/graphify/src/db/buildDb.ts": {
+    "mtime": 1781782231.3204925,
+    "ast_hash": "d0f5fb0abc8c2cbba491fab7ce54e654",
+    "semantic_hash": "d0f5fb0abc8c2cbba491fab7ce54e654"
+  },
+  "/Users/yoyo/Documents/graphify/src/db/methods/create_edge.ts": {
+    "mtime": 1781782227.396195,
+    "ast_hash": "408eccb2e0af60728a420bd9c4254987",
+    "semantic_hash": "408eccb2e0af60728a420bd9c4254987"
+  },
+  "/Users/yoyo/Documents/graphify/src/db/methods/create_node.ts": {
+    "mtime": 1781782227.3962688,
+    "ast_hash": "7ef94dca7be0a54818912624aa085eba",
+    "semantic_hash": "7ef94dca7be0a54818912624aa085eba"
+  },
+  "/Users/yoyo/Documents/graphify/src/db/methods/delete_edge.ts": {
+    "mtime": 1781782227.4254136,
+    "ast_hash": "9f47860f6f3c92fd485456c74435c7be",
+    "semantic_hash": "9f47860f6f3c92fd485456c74435c7be"
+  },
+  "/Users/yoyo/Documents/graphify/src/db/methods/delete_node.ts": {
+    "mtime": 1781782227.3961601,
+    "ast_hash": "a91e655a414a29a81de777b05b9bad2f",
+    "semantic_hash": "a91e655a414a29a81de777b05b9bad2f"
+  },
+  "/Users/yoyo/Documents/graphify/src/db/methods/get_nodes_and_edges.ts": {
+    "mtime": 1781782227.3961859,
+    "ast_hash": "54efcf6f46ffe916681b20c9a4c2a317",
+    "semantic_hash": "54efcf6f46ffe916681b20c9a4c2a317"
+  },
+  "/Users/yoyo/Documents/graphify/src/db/migrations/0.0.0_drops.sql": {
+    "mtime": 1781691562.2939305,
+    "ast_hash": "423235f50982c16014ac72873f37c619",
+    "semantic_hash": "423235f50982c16014ac72873f37c619"
+  },
+  "/Users/yoyo/Documents/graphify/src/db/migrations/1.0.0_grapb.sql": {
+    "mtime": 1781691990.5088897,
+    "ast_hash": "100f379406cc1ca8146e04ae17ff3f5e",
+    "semantic_hash": "100f379406cc1ca8146e04ae17ff3f5e"
+  },
+  "/Users/yoyo/Documents/graphify/src/db/migrations/2.0.0_edge_trigger.sql": {
+    "mtime": 1781692140.141046,
+    "ast_hash": "b16997510552911a1f64d04f2f8ae674",
+    "semantic_hash": "b16997510552911a1f64d04f2f8ae674"
+  },
+  "/Users/yoyo/Documents/graphify/src/db/migrations/9.0.0_seed.sql": {
+    "mtime": 1781695062.2361047,
+    "ast_hash": "45dfda0678068699d9455890a67c8c86",
+    "semantic_hash": "45dfda0678068699d9455890a67c8c86"
+  },
+  "/Users/yoyo/Documents/graphify/src/db/run_sql.sh": {
+    "mtime": 1781616895.226228,
+    "ast_hash": "7e00052a8a66045d030d04ad93f35469",
+    "semantic_hash": "7e00052a8a66045d030d04ad93f35469"
+  },
+  "/Users/yoyo/Documents/graphify/src/db/schema.ts": {
+    "mtime": 1781674871.6194415,
+    "ast_hash": "1da558245bf2f9d9f049b6989e815ca4",
+    "semantic_hash": "1da558245bf2f9d9f049b6989e815ca4"
+  },
+  "/Users/yoyo/Documents/graphify/src/graph_services/buildAdjacencyList.ts": {
+    "mtime": 1781778063.0977137,
+    "ast_hash": "2ac27364bb5a7590d5a1874a4af7c89a",
+    "semantic_hash": "2ac27364bb5a7590d5a1874a4af7c89a"
+  },
+  "/Users/yoyo/Documents/graphify/src/graph_services/graph.router.ts": {
+    "mtime": 1781695716.8673694,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "/Users/yoyo/Documents/graphify/src/graph_services/graph.service.ts": {
+    "mtime": 1781695716.867532,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "/Users/yoyo/Documents/graphify/src/graph_services/graph.types.ts": {
+    "mtime": 1781695716.868176,
+    "ast_hash": "0a869c88502a9148af72234ab53834fa",
+    "semantic_hash": "0a869c88502a9148af72234ab53834fa"
+  },
+  "/Users/yoyo/Documents/graphify/src/graph_services/queries/getAllNodePaths.ts": {
+    "mtime": 1781782752.3416362,
+    "ast_hash": "a1e6b7f47e5f1f777ae3b69282f702b7",
+    "semantic_hash": "a1e6b7f47e5f1f777ae3b69282f702b7"
+  },
+  "/Users/yoyo/Documents/graphify/src/graph_services/queries/getConnectedComponents.ts": {
+    "mtime": 1781782757.7070742,
+    "ast_hash": "30e9dbd373a8db167bce8e3c12b5c6b8",
+    "semantic_hash": "30e9dbd373a8db167bce8e3c12b5c6b8"
+  },
+  "/Users/yoyo/Documents/graphify/src/graph_services/queries/getNodeDegrees.ts": {
+    "mtime": 1781695126.651397,
+    "ast_hash": "474503cdf42f46197d25307196c923ad",
+    "semantic_hash": "474503cdf42f46197d25307196c923ad"
+  },
+  "/Users/yoyo/Documents/graphify/src/graph_services/queries/hasCycle.ts": {
+    "mtime": 1781782765.891626,
+    "ast_hash": "3c8bc3e20ae07b3c7a31eff2760891f6",
+    "semantic_hash": "3c8bc3e20ae07b3c7a31eff2760891f6"
+  },
+  "/Users/yoyo/Documents/graphify/src/graph_services/queries/tests/getAllNodePaths.test.ts": {
+    "mtime": 1781783048.5426927,
+    "ast_hash": "717b3910c74801e352c562d2092c55f0",
+    "semantic_hash": "717b3910c74801e352c562d2092c55f0"
+  },
+  "/Users/yoyo/Documents/graphify/src/graph_services/queries/tests/getConnectedComponents.test.ts": {
+    "mtime": 1781782971.6617608,
+    "ast_hash": "91075a69b4a5d994f3b2108f4f5bfdad",
+    "semantic_hash": "91075a69b4a5d994f3b2108f4f5bfdad"
+  },
+  "/Users/yoyo/Documents/graphify/src/graph_services/queries/tests/hasCycle.test.ts": {
+    "mtime": 1781782971.5949898,
+    "ast_hash": "98942975c0f72ca9fc9ad5261dcc8470",
+    "semantic_hash": "98942975c0f72ca9fc9ad5261dcc8470"
+  },
+  "/Users/yoyo/Documents/graphify/src/routes/edges.ts": {
+    "mtime": 1781695716.8662286,
+    "ast_hash": "b54bc15bf635c2872fb8dde8fc3860a6",
+    "semantic_hash": "b54bc15bf635c2872fb8dde8fc3860a6"
+  },
+  "/Users/yoyo/Documents/graphify/src/routes/graph.ts": {
+    "mtime": 1781695716.8666167,
+    "ast_hash": "b54bc15bf635c2872fb8dde8fc3860a6",
+    "semantic_hash": "b54bc15bf635c2872fb8dde8fc3860a6"
+  },
+  "/Users/yoyo/Documents/graphify/src/routes/nodes.ts": {
+    "mtime": 1781695716.866867,
+    "ast_hash": "b54bc15bf635c2872fb8dde8fc3860a6",
+    "semantic_hash": "b54bc15bf635c2872fb8dde8fc3860a6"
+  },
+  "/Users/yoyo/Documents/graphify/src/schemas/edges.ts": {
+    "mtime": 1781695716.8670306,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "/Users/yoyo/Documents/graphify/src/schemas/nodes.ts": {
+    "mtime": 1781695716.8672035,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "/Users/yoyo/Documents/graphify/src/server.ts": {
+    "mtime": 1781783933.3870058,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "/Users/yoyo/Documents/graphify/tsconfig.json": {
+    "mtime": 1781695716.868677,
+    "ast_hash": "51aba4394e06e633077089b85f75c5f0",
+    "semantic_hash": "51aba4394e06e633077089b85f75c5f0"
+  }
+}

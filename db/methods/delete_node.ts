@@ -1,5 +1,5 @@
 import { NodeId } from "../../graph_services/graph.types";
-import { db } from "../index";
+import { db } from "../buildDb";
 
 export async function delete_node(node_id: NodeId): Promise<void> {
     await db

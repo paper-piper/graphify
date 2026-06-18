@@ -1,4 +1,4 @@
-import { AdjacencyList, Edge, Node, NodeId } from "../graph.types";
+import { AdjacencyList, NodeId } from "../graph.types";
 import { buildAdjacencyList } from "../buildAdjacencyList";
 
 export function getConnectedComponents(adj: AdjacencyList): Set<NodeId>[] {

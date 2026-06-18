@@ -1,5 +1,5 @@
 import { AdjacencyList } from "./graph.types";
-import { get_nodes_and_edges } from "../../db/get_nodes_and_edges";
+import { get_nodes_and_edges } from "../db/methods/get_nodes_and_edges";
 
 export async function buildAdjacencyList(): Promise<AdjacencyList>
 {

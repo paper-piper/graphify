@@ -1,5 +1,4 @@
 import { AdjacencyList, NodeId } from "../graph.types";
-import { buildAdjacencyList } from "../buildAdjacencyList";
 
 export function getConnectedComponents(adj: AdjacencyList): Set<NodeId>[] {
     const components: Set<NodeId>[] = [];
@@ -8,27 +7,27 @@ export function getConnectedComponents(adj: AdjacencyList): Set<NodeId>[] {
 
         const already_present = components.some(set => set.has(node))
         if (!already_present){
-            const neighberhood = getNeighberhood(adj, node)
-            components.push(neighberhood)
+            const neighborhood = getNeighborhood(adj, node)
+            components.push(neighborhood)
         }
     };
 
     return components;
 }
 
-function getNeighberhood(
+function getNeighborhood(
   adj: AdjacencyList,
   node: NodeId,
   visited: Set<NodeId> = new Set()
-): Set<NodeId> {    
+): Set<NodeId> {
     if (visited.has(node)){
         return visited
     }
 
     visited.add(node)
 
-    adj.get(node)!.forEach(neighber => {
-        getNeighberhood(adj, neighber, visited)
+    adj.get(node)!.forEach(neighbor => {
+        getNeighborhood(adj, neighbor, visited)
     });
 
     return visited;

@@ -1,11 +1,11 @@
 import { describe, it, expect, vi } from 'vitest';
-import { AdjacencyList } from '../../graph.types';
+import { AdjacencyList } from '../graph.types';
 
 vi.mock('../../buildAdjacencyList', () => ({
   buildAdjacencyList: vi.fn().mockResolvedValue(new Map()),
 }));
 
-import { hasCycle } from '../hasCycle';
+import { hasCycle } from './hasCycle';
 
 function makeAdj(entries: [string, string[]][]): AdjacencyList {
   return new Map(entries.map(([node, neighbors]) => [node, new Set(neighbors)]));

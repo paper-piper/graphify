@@ -1,5 +1,4 @@
-import { AdjacencyList, Edge, Node, NodeId } from "../graph.types";
-import { buildAdjacencyList } from "../buildAdjacencyList";
+import { AdjacencyList, NodeId } from "../graph.types";
 
 export function hasCycle(adj: AdjacencyList): boolean {
     const visited = new Set<NodeId>();
@@ -7,10 +6,10 @@ export function hasCycle(adj: AdjacencyList): boolean {
 
         const already_visited = visited.has(node);
         if (!already_visited){
-            const [node_neighbers, circle_neighberhood] = isCircleNeighberhood(adj, node);
-            node_neighbers.forEach(neighber => visited.add(neighber));
-               
-            if (circle_neighberhood){
+            const [node_neighbors, circle_neighborhood] = isCircleNeighborhood(adj, node);
+            node_neighbors.forEach(neighbor => visited.add(neighbor));
+
+            if (circle_neighborhood){
                 return true;
             }
         }
@@ -19,22 +18,25 @@ export function hasCycle(adj: AdjacencyList): boolean {
     return false;
 }
 
-function isCircleNeighberhood(
+function isCircleNeighborhood(
   adj: AdjacencyList,
   current_node: NodeId,
   visited: NodeId[] = [],
-): [NodeId[], boolean] {  
+): [NodeId[], boolean] {
 
     if (visited.includes(current_node)){
 
-        const fake_circle: boolean = current_node !== visited[visited.length -2]
-        return [visited, fake_circle];
+        const double_node_circle: boolean = current_node === visited[visited.length -2]
+        if (double_node_circle)
+            return [visited, false];
+        else
+            return [visited, true]
     }
 
     visited.push(current_node);
 
-    for (const neighber of adj.get(current_node)!){
-        const [, foundCycle] = isCircleNeighberhood(adj, neighber, [...visited]);
+    for (const neighbor of adj.get(current_node)!){
+        const [, foundCycle] = isCircleNeighborhood(adj, neighbor, [...visited]);
         if (foundCycle){
             return [visited, true]
         }

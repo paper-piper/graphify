@@ -8,7 +8,7 @@ PORT="${PGPORT:-6000}"
 DB="${PGDATABASE:-graphify}"
 USER="${PGUSER:-postgres}"
 export PGPASSWORD="${PGPASSWORD:-db-chef}"
-MIGRATIONS_DIR="$(dirname "$0")/migrations"
+MIGRATIONS_DIR="$(cd "$(dirname "$0")" && pwd)/../src/db/migrations"
 
 # ─── Run ──────────────────────────────────────────────────────────────────────
 

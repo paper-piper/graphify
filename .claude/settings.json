@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \"const {NoResultError} = require\\('kysely'\\); console.log\\(NoResultError.length\\); const e = new NoResultError\\({sql:'',parameters:[],query:{kind:'SelectQueryNode'}}\\); console.log\\(e.message\\)\")",
+      "Bash(npx tsc *)"
+    ]
+  }
+}

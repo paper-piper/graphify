@@ -23,7 +23,6 @@ import { delete_node } from '../services/deleteNode';
 import { create_edge } from '../services/createEdge';
 import { delete_edge } from '../services/deleteEdge';
 import { buildAdjacencyList } from '../graph/buildAdjacencyList';
-import { NoResultError } from 'kysely';
 import { HTTP_STATUS } from './httpStatus';
 
 const mockCreateNode = vi.mocked(create_node);

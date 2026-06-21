@@ -1,0 +1,288 @@
+{
+  "info": {
+    "name": "Graphify API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://127.0.0.1:3000"
+    }
+  ],
+  "item": [
+    {
+      "name": "Nodes",
+      "item": [
+        {
+          "name": "Create Node",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/nodes",
+              "host": ["{{baseUrl}}"],
+              "path": ["nodes"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"value\": \"my-node\"\n}"
+            }
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "status": "Created",
+              "code": 201,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{ \"id\": \"<uuid>\" }"
+            },
+            {
+              "name": "400 Bad Request",
+              "status": "Bad Request",
+              "code": 400,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{ \"error\": { ... } }"
+            }
+          ]
+        },
+        {
+          "name": "Delete Node",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/nodes/:nodeId",
+              "host": ["{{baseUrl}}"],
+              "path": ["nodes", ":nodeId"],
+              "variable": [
+                {
+                  "key": "nodeId",
+                  "value": "<node-id>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "204 No Content",
+              "status": "No Content",
+              "code": 204,
+              "body": ""
+            },
+            {
+              "name": "404 Not Found",
+              "status": "Not Found",
+              "code": 404,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{ \"error\": \"Node not found\" }"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Edges",
+      "item": [
+        {
+          "name": "Create Edge (Undirected)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/edges",
+              "host": ["{{baseUrl}}"],
+              "path": ["edges"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"source_node_id\": \"<source-id>\",\n  \"target_node_id\": \"<target-id>\"\n}"
+            }
+          },
+          "response": [
+            {
+              "name": "201 Created",
+              "status": "Created",
+              "code": 201,
+              "body": ""
+            },
+            {
+              "name": "400 Bad Request",
+              "status": "Bad Request",
+              "code": 400,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{ \"error\": { ... } }"
+            },
+            {
+              "name": "409 Conflict — Edge Already Exists",
+              "status": "Conflict",
+              "code": 409,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{ \"error\": \"Edge already exists\" }"
+            }
+          ]
+        },
+        {
+          "name": "Delete Edge (Undirected)",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{baseUrl}}/edges/:source_node_id/:target_node_id",
+              "host": ["{{baseUrl}}"],
+              "path": ["edges", ":source_node_id", ":target_node_id"],
+              "variable": [
+                {
+                  "key": "source_node_id",
+                  "value": "<source-id>"
+                },
+                {
+                  "key": "target_node_id",
+                  "value": "<target-id>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "204 No Content",
+              "status": "No Content",
+              "code": 204,
+              "body": ""
+            },
+            {
+              "name": "404 Not Found",
+              "status": "Not Found",
+              "code": 404,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{ \"error\": \"edge not found\" }"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Queries",
+      "item": [
+        {
+          "name": "Get Connected Components",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/queries/components",
+              "host": ["{{baseUrl}}"],
+              "path": ["queries", "components"]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "status": "OK",
+              "code": 200,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{ \"components\": [[\"node-a\", \"node-b\"], [\"node-c\"]] }"
+            }
+          ]
+        },
+        {
+          "name": "Detect Cycles",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/queries/cycles",
+              "host": ["{{baseUrl}}"],
+              "path": ["queries", "cycles"]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK — No Cycle",
+              "status": "OK",
+              "code": 200,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{ \"has_cycle\": false }"
+            },
+            {
+              "name": "200 OK — Cycle Found",
+              "status": "OK",
+              "code": 200,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{ \"has_cycle\": true }"
+            }
+          ]
+        },
+        {
+          "name": "Get Node Degrees",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/queries/degrees/:nodeId",
+              "host": ["{{baseUrl}}"],
+              "path": ["queries", "degrees", ":nodeId"],
+              "variable": [
+                {
+                  "key": "nodeId",
+                  "value": "<node-id>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "status": "OK",
+              "code": 200,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{ \"node\": \"<node-id>\", \"neighbors\": [\"node-b\", \"node-c\"] }"
+            },
+            {
+              "name": "400 Bad Request",
+              "status": "Bad Request",
+              "code": 400,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{ \"error\": { ... } }"
+            }
+          ]
+        },
+        {
+          "name": "Get All Paths Between Nodes",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/queries/paths?from=<source-id>&to=<target-id>",
+              "host": ["{{baseUrl}}"],
+              "path": ["queries", "paths"],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "<source-id>"
+                },
+                {
+                  "key": "to",
+                  "value": "<target-id>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "status": "OK",
+              "code": 200,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{ \"paths\": [[\"node-a\", \"node-b\", \"node-c\"], [\"node-a\", \"node-d\", \"node-c\"]] }"
+            },
+            {
+              "name": "400 Bad Request",
+              "status": "Bad Request",
+              "code": 400,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{ \"error\": { ... } }"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

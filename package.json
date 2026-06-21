@@ -2,7 +2,7 @@
   "name": "graphify",
   "version": "1.0.0",
   "scripts": {
-    "dev": "ts-node src/server.ts",
+    "dev": "ts-node src/http/server.ts",
     "test": "vitest run",
     "test:watch": "vitest"
   },

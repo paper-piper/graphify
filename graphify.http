@@ -1,0 +1,31 @@
+@host = http://localhost:3000
+
+### Add a node
+POST {{host}}/nodes
+Content-Type: application/json
+
+{ "value": "Alpha" }
+
+### Delete a node
+DELETE {{host}}/nodes/012d3685-0682-42cf-b45e-b7655118af9f
+
+### Add an edge
+POST {{host}}/edges
+Content-Type: application/json
+
+{ "source_node_id": "33dfc1b2-f78c-4885-8d5a-fd247a77ed89", "target_node_id": "0fd60289-750b-451c-bf2d-0c7a142df77b" }
+
+### Delete an edge
+DELETE {{host}}/edges/33dfc1b2-f78c-4885-8d5a-fd247a77ed89/0fd60289-750b-451c-bf2d-0c7a142df77b
+
+### Does the graph have a cycle?
+GET {{host}}/queries/cycles
+
+### All paths between two nodes
+GET {{host}}/queries/paths?from=33dfc1b2-f78c-4885-8d5a-fd247a77ed89&to=0fd60289-750b-451c-bf2d-0c7a142df77b
+
+### Connected components
+GET {{host}}/queries/components
+
+### Neighbors of a node
+GET {{host}}/queries/degrees/0fd60289-750b-451c-bf2d-0c7a142df77b

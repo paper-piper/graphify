@@ -4,7 +4,7 @@ export const config = {
     port: 6000,
     database: 'graphify',
     user: 'postgres',
-    password: 'db-chef',
+    password: 'db-chef', //.env and frameworks like 'dotenv'
   },
   connection: {
     host: '127.0.0.1',

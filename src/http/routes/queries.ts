@@ -11,6 +11,7 @@ import { paths_query_z } from '../schemas';
 import { node_id_z } from '../schemas';
 
 export const queriesRouter = Router();
+// TODO: migrate to quas - and also move to functions
 
 queriesRouter.get('/cycles', async (_req, res) => {
     try{

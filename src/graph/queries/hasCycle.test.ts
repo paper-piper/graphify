@@ -33,3 +33,5 @@ describe('hasCycle', () => {
     expect(hasCycle(adj)).toBe(false);
   });
 });
+
+// TODO: understand everything

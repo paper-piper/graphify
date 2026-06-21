@@ -1,4 +1,4 @@
-import { z } from "zod";
+import z from "zod";
 
 export const edge_z = z.object({
     source_node_id: z.string().min(1),

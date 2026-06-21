@@ -7,7 +7,7 @@ import { edge_z } from '../schemas'
 import { HTTP_STATUS } from '../httpStatus';
 export const edgesRouter = Router();
 
-
+// TODO: migrate to quas - and also move to functions
 edgesRouter.post('/', async (req, res) => {
     const parsed = edge_z.safeParse(req.body);
     if (!parsed.success) {

@@ -14,7 +14,6 @@ MIGRATIONS_DIR="$(cd "$(dirname "$0")" && pwd)/../src/db/migrations"
 
 echo "Connecting to $USER@$HOST:$PORT/$DB"
 echo "Running migrations from: $MIGRATIONS_DIR"
-echo
 
 files=$(ls "$MIGRATIONS_DIR"/*.sql 2>/dev/null | sort -V)
 

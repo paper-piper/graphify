@@ -8,7 +8,7 @@ import { node_id_z } from '../schemas';
 import { HTTP_STATUS } from '../httpStatus';
 
 export const nodesRouter = Router();
-
+// TODO: migrate to quas - and also move to functions
 
 nodesRouter.post('/', async (req, res) => {
     const parsed = node_value_z.safeParse(req.body);

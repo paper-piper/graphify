@@ -66,7 +66,7 @@ describe('DELETE /nodes/:nodeId', () => {
   });
 
   it('returns 404 when the node does not exist', async () => {
-    mockDeleteNode.mockRejectedValue(new NoResultError());
+    mockDeleteNode.mockRejectedValue(new Error('No result'));
 
     const res = await request(app).delete('/nodes/missing');
 
@@ -116,7 +116,7 @@ describe('DELETE /edges/:sourceId/:targetId', () => {
   });
 
   it('returns 404 when the edge does not exist', async () => {
-    mockDeleteEdge.mockRejectedValue(new NoResultError());
+    mockDeleteEdge.mockRejectedValue(new Error('No result'));
 
     const res = await request(app).delete('/edges/node-1/missing');
 

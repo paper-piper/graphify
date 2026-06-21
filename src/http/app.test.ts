@@ -18,12 +18,13 @@ vi.mock('./graph/buildAdjacencyList', () => ({
 }));
 
 import app from './app';
-import { create_node } from './services/createNode';
-import { delete_node } from './services/deleteNode';
-import { create_edge } from './services/createEdge';
-import { delete_edge } from './services/deleteEdge';
-import { buildAdjacencyList } from './graph/buildAdjacencyList';
+import { create_node } from '../services/createNode';
+import { delete_node } from '../services/deleteNode';
+import { create_edge } from '../services/createEdge';
+import { delete_edge } from '../services/deleteEdge';
+import { buildAdjacencyList } from '../graph/buildAdjacencyList';
 import { NoResultError } from 'kysely';
+import { HTTP_STATUS } from './httpStatus';
 
 const mockCreateNode = vi.mocked(create_node);
 const mockDeleteNode = vi.mocked(delete_node);
@@ -43,7 +44,7 @@ describe('POST /nodes', () => {
 
     const res = await request(app).post('/nodes').send({ value: 'Alpha' });
 
-    expect(res.status).toBe(201);
+    expect(res.status).toBe(HTTP_STATUS.CREATED);
     expect(res.body).toEqual({ id: 'node-1' });
   });
 
@@ -52,17 +53,17 @@ describe('POST /nodes', () => {
 
     const res = await request(app).post('/nodes').send({ value: 'Alpha' });
 
-    expect(res.status).toBe(500);
+    expect(res.status).toBe(HTTP_STATUS.INTERNAL_SERVER_ERROR);
   });
 });
 
 describe('DELETE /nodes/:nodeId', () => {
-  it('returns 200 when the node is deleted', async () => {
+  it('returns 204 when the node is deleted', async () => {
     mockDeleteNode.mockResolvedValue();
 
     const res = await request(app).delete('/nodes/node-1');
 
-    expect(res.status).toBe(200);
+    expect(res.status).toBe(HTTP_STATUS.NO_CONTENT);
   });
 
   it('returns 404 when the node does not exist', async () => {
@@ -70,7 +71,7 @@ describe('DELETE /nodes/:nodeId', () => {
 
     const res = await request(app).delete('/nodes/missing');
 
-    expect(res.status).toBe(404);
+    expect(res.status).toBe(HTTP_STATUS.NOT_FOUND);
   });
 
   it('returns 500 on unexpected errors', async () => {
@@ -78,7 +79,7 @@ describe('DELETE /nodes/:nodeId', () => {
 
     const res = await request(app).delete('/nodes/node-1');
 
-    expect(res.status).toBe(500);
+    expect(res.status).toBe(HTTP_STATUS.INTERNAL_SERVER_ERROR);
   });
 });
 
@@ -92,7 +93,18 @@ describe('POST /edges', () => {
       .post('/edges')
       .send({ source_node_id: 'node-1', target_node_id: 'node-2' });
 
-    expect(res.status).toBe(201);
+    expect(res.status).toBe(HTTP_STATUS.CREATED);
+  });
+
+  it('returns 409 when the edge already exists', async () => {
+    const conflictError = Object.assign(new Error('duplicate key'), { code: '23505' });
+    mockCreateEdge.mockRejectedValue(conflictError);
+
+    const res = await request(app)
+      .post('/edges')
+      .send({ source_node_id: 'node-1', target_node_id: 'node-2' });
+
+    expect(res.status).toBe(HTTP_STATUS.CONFLICT);
   });
 
   it('returns 500 when creation fails', async () => {
@@ -102,17 +114,17 @@ describe('POST /edges', () => {
       .post('/edges')
       .send({ source_node_id: 'node-1', target_node_id: 'node-2' });
 
-    expect(res.status).toBe(500);
+    expect(res.status).toBe(HTTP_STATUS.INTERNAL_SERVER_ERROR);
   });
 });
 
 describe('DELETE /edges/:sourceId/:targetId', () => {
-  it('returns 200 when the edge is deleted', async () => {
+  it('returns 204 when the edge is deleted', async () => {
     mockDeleteEdge.mockResolvedValue();
 
     const res = await request(app).delete('/edges/node-1/node-2');
 
-    expect(res.status).toBe(200);
+    expect(res.status).toBe(HTTP_STATUS.NO_CONTENT);
   });
 
   it('returns 404 when the edge does not exist', async () => {
@@ -120,7 +132,7 @@ describe('DELETE /edges/:sourceId/:targetId', () => {
 
     const res = await request(app).delete('/edges/node-1/missing');
 
-    expect(res.status).toBe(404);
+    expect(res.status).toBe(HTTP_STATUS.NOT_FOUND);
   });
 
   it('returns 500 on unexpected errors', async () => {
@@ -128,7 +140,7 @@ describe('DELETE /edges/:sourceId/:targetId', () => {
 
     const res = await request(app).delete('/edges/node-1/node-2');
 
-    expect(res.status).toBe(500);
+    expect(res.status).toBe(HTTP_STATUS.INTERNAL_SERVER_ERROR);
   });
 });
 
@@ -148,7 +160,7 @@ describe('GET /queries/cycles', () => {
 
     const res = await request(app).get('/queries/cycles');
 
-    expect(res.status).toBe(201);
+    expect(res.status).toBe(HTTP_STATUS.CREATED);
     expect(res.body).toEqual({ has_cycle: true });
   });
 
@@ -161,7 +173,7 @@ describe('GET /queries/cycles', () => {
 
     const res = await request(app).get('/queries/cycles');
 
-    expect(res.status).toBe(201);
+    expect(res.status).toBe(HTTP_STATUS.CREATED);
     expect(res.body).toEqual({ has_cycle: false });
   });
 });
@@ -177,14 +189,14 @@ describe('GET /queries/paths', () => {
 
     const res = await request(app).get('/queries/paths?from=A&to=D');
 
-    expect(res.status).toBe(200);
+    expect(res.status).toBe(HTTP_STATUS.OK);
     expect(res.body.paths).toHaveLength(2);
   });
 
   it('returns 400 when from or to params are missing', async () => {
     const res = await request(app).get('/queries/paths?from=A');
 
-    expect(res.status).toBe(400);
+    expect(res.status).toBe(HTTP_STATUS.BAD_REQUEST);
   });
 });
 
@@ -199,7 +211,7 @@ describe('GET /queries/components', () => {
 
     const res = await request(app).get('/queries/components');
 
-    expect(res.status).toBe(200);
+    expect(res.status).toBe(HTTP_STATUS.OK);
     expect(res.body.components).toHaveLength(2);
   });
 });
@@ -214,7 +226,7 @@ describe('GET /queries/degrees/:nodeId', () => {
 
     const res = await request(app).get('/queries/degrees/A');
 
-    expect(res.status).toBe(200);
+    expect(res.status).toBe(HTTP_STATUS.OK);
     expect(res.body.node).toBe('A');
     expect(res.body.neighbors).toEqual(expect.arrayContaining(['B', 'C']));
   });

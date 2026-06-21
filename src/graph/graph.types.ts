@@ -1,8 +1,7 @@
-// A node identifier. Swap to `string` here if you use UUIDs.
 export type NodeId = string;
 export type NodeValue = string;
-// The "special map": adjacency list of a directed graph.
-// key = node id, value = list of node ids it points to (its out-neighbors).
+
+// a special data type great at querie. contains pairs of node and his
 export type AdjacencyList = Map<NodeId, Set<NodeId>>;
 
 export interface Node {

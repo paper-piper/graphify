@@ -15,9 +15,9 @@ describe('getAllNodePaths', () => {
   it('returns all paths when multiple routes exist between source and target', () => {
     const adj = makeAdj([
       ['A', ['B', 'C']],
-      ['B', ['D']],
-      ['C', ['D']],
-      ['D', []],
+      ['B', ['A', 'D']],
+      ['C', ['A', 'D']],
+      ['D', ['B', 'C']],
     ]);
 
     const paths = getAllNodePaths(adj, 'A' as NodeId, 'D' as NodeId);
@@ -27,15 +27,15 @@ describe('getAllNodePaths', () => {
     expect(paths).toContainEqual(['A', 'C', 'D']);
   });
 
-  it('returns empty array when no directed path exists from source to target', () => {
+  it('returns empty array when source and target are in disconnected components', () => {
     const adj = makeAdj([
       ['A', ['B']],
-      ['B', []],
+      ['B', ['A']],
       ['C', ['D']],
-      ['D', []],
+      ['D', ['C']],
     ]);
 
-    const paths = getAllNodePaths(adj, 'B' as NodeId, 'A' as NodeId);
+    const paths = getAllNodePaths(adj, 'A' as NodeId, 'C' as NodeId);
 
     expect(paths).toHaveLength(0);
   });

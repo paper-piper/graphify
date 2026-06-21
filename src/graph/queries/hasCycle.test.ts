@@ -14,20 +14,20 @@ function makeAdj(entries: [string, string[]][]): AdjacencyList {
 describe('hasCycle', () => {
   it('returns true when the graph contains a cycle', () => {
     const adj = makeAdj([
-      ['A', ['B']],
-      ['B', ['C']],
-      ['C', ['A']],
+      ['A', ['B', 'C']],
+      ['B', ['A', 'C']],
+      ['C', ['A', 'B']],
     ]);
 
     expect(hasCycle(adj)).toBe(true);
   });
 
-  it('returns false for a directed acyclic graph', () => {
+  it('returns false for a tree (no cycles)', () => {
     const adj = makeAdj([
       ['A', ['B', 'C']],
-      ['B', ['D']],
-      ['C', ['D']],
-      ['D', []],
+      ['B', ['A', 'D']],
+      ['C', ['A']],
+      ['D', ['B']],
     ]);
 
     expect(hasCycle(adj)).toBe(false);

@@ -27,7 +27,7 @@ edgesRouter.post('/', async (req, res) => {
     }
 })
 
-edgesRouter.delete('/:sourceId/:targetId', async (req, res) => {
+edgesRouter.delete('/:source_node_id/:target_node_id', async (req, res) => {
     const parsed = edge_z.safeParse(req.params);
     if (!parsed.success) {
         res.status(HTTP_STATUS.BAD_REQUEST).json({ error: z.treeifyError(parsed.error) });

@@ -22,7 +22,6 @@ export function getAllNodePaths(
     }
 
     // else, continue exploring each neighbor
-    const node_neighbors = adj.get(current_node)!
     for (const next_node of adj.get(current_node)!){
         // create new path for each direction
         const new_path: NodeId[] = [...current_path]

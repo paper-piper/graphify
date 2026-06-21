@@ -12,11 +12,11 @@ function makeAdj(entries: [string, string[]][]): AdjacencyList {
 }
 
 describe('getConnectedComponents', () => {
-  it('returns a single component when all nodes are reachable from one root', () => {
+  it('returns a single component when all nodes are connected', () => {
     const adj = makeAdj([
       ['A', ['B', 'C']],
-      ['B', ['C']],
-      ['C', []],
+      ['B', ['A', 'C']],
+      ['C', ['A', 'B']],
     ]);
 
     const components = getConnectedComponents(adj);
@@ -28,9 +28,9 @@ describe('getConnectedComponents', () => {
   it('returns two separate components for a disconnected graph', () => {
     const adj = makeAdj([
       ['A', ['B']],
-      ['B', []],
+      ['B', ['A']],
       ['C', ['D']],
-      ['D', []],
+      ['D', ['C']],
     ]);
 
     const components = getConnectedComponents(adj);

@@ -1,19 +1,19 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import request from 'supertest';
 
-vi.mock('./services/createNode', () => ({
+vi.mock('../services/createNode', () => ({
   create_node: vi.fn(),
 }));
-vi.mock('./services/deleteNode', () => ({
+vi.mock('../services/deleteNode', () => ({
   delete_node: vi.fn(),
 }));
-vi.mock('./services/createEdge', () => ({
+vi.mock('../services/createEdge', () => ({
   create_edge: vi.fn(),
 }));
-vi.mock('./services/deleteEdge', () => ({
+vi.mock('../services/deleteEdge', () => ({
   delete_edge: vi.fn(),
 }));
-vi.mock('./graph/buildAdjacencyList', () => ({
+vi.mock('../graph/buildAdjacencyList', () => ({
   buildAdjacencyList: vi.fn(),
 }));
 
@@ -24,6 +24,7 @@ import { create_edge } from '../services/createEdge';
 import { delete_edge } from '../services/deleteEdge';
 import { buildAdjacencyList } from '../graph/buildAdjacencyList';
 import { HTTP_STATUS } from './httpStatus';
+import { NoResultError } from 'kysely';
 
 const mockCreateNode = vi.mocked(create_node);
 const mockDeleteNode = vi.mocked(delete_node);
@@ -66,7 +67,7 @@ describe('DELETE /nodes/:nodeId', () => {
   });
 
   it('returns 404 when the node does not exist', async () => {
-    mockDeleteNode.mockRejectedValue(new Error('No result'));
+    mockDeleteNode.mockRejectedValue(new NoResultError());
 
     const res = await request(app).delete('/nodes/missing');
 
@@ -127,7 +128,7 @@ describe('DELETE /edges/:sourceId/:targetId', () => {
   });
 
   it('returns 404 when the edge does not exist', async () => {
-    mockDeleteEdge.mockRejectedValue(new Error('No result'));
+    mockDeleteEdge.mockRejectedValue(new NoResultError());
 
     const res = await request(app).delete('/edges/node-1/missing');
 
@@ -159,20 +160,21 @@ describe('GET /queries/cycles', () => {
 
     const res = await request(app).get('/queries/cycles');
 
-    expect(res.status).toBe(HTTP_STATUS.CREATED);
+    expect(res.status).toBe(HTTP_STATUS.OK);
     expect(res.body).toEqual({ has_cycle: true });
   });
 
   it('returns has_cycle false for an acyclic graph', async () => {
     mockBuildAdjacencyList.mockResolvedValue(makeAdj([
-      ['A', ['B']],
-      ['B', ['C']],
-      ['C', []],
+      ['A', ['B', 'C']],
+      ['B', ['A', 'D']],
+      ['C', ['A']],
+      ['D', ['B']],
     ]));
 
     const res = await request(app).get('/queries/cycles');
 
-    expect(res.status).toBe(HTTP_STATUS.CREATED);
+    expect(res.status).toBe(HTTP_STATUS.OK);
     expect(res.body).toEqual({ has_cycle: false });
   });
 });
@@ -181,9 +183,9 @@ describe('GET /queries/paths', () => {
   it('returns all paths between two connected nodes', async () => {
     mockBuildAdjacencyList.mockResolvedValue(makeAdj([
       ['A', ['B', 'C']],
-      ['B', ['D']],
-      ['C', ['D']],
-      ['D', []],
+      ['B', ['A', 'D']],
+      ['C', ['A', 'D']],
+      ['D', ['B', 'C']],
     ]));
 
     const res = await request(app).get('/queries/paths?from=A&to=D');
@@ -203,9 +205,9 @@ describe('GET /queries/components', () => {
   it('returns each disconnected subgraph as its own component', async () => {
     mockBuildAdjacencyList.mockResolvedValue(makeAdj([
       ['A', ['B']],
-      ['B', []],
+      ['B', ['A']],
       ['C', ['D']],
-      ['D', []],
+      ['D', ['C']],
     ]));
 
     const res = await request(app).get('/queries/components');
@@ -219,8 +221,8 @@ describe('GET /queries/degrees/:nodeId', () => {
   it('returns the neighbors of the given node', async () => {
     mockBuildAdjacencyList.mockResolvedValue(makeAdj([
       ['A', ['B', 'C']],
-      ['B', []],
-      ['C', []],
+      ['B', ['A']],
+      ['C', ['A']],
     ]));
 
     const res = await request(app).get('/queries/degrees/A');

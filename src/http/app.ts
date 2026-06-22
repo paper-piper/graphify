@@ -1,14 +1,16 @@
-import express from 'express';
-import { nodesRouter } from './routes/nodes';
-import { edgesRouter } from './routes/edges';
-import { queriesRouter } from './routes/queries';
+import Koa from 'koa';
+import Router from '@koa/router';
+import { nodesRouter } from './nodes/nodesRouter';
+import { edgesRouter } from './edges/edgesRouter';
+import { queriesRouter } from './queries/queriesRouter';
 
-const app = express();
-app.use(express.json());
+const app = new Koa();
+const rootRouter = new Router();
 
-app.use('/nodes', nodesRouter);
-app.use('/edges', edgesRouter);
-app.use('/queries', queriesRouter);
+rootRouter.use('/nodes', nodesRouter.routes());
+rootRouter.use('/edges', edgesRouter.routes());
+rootRouter.use('/queries', queriesRouter.routes());
+
+app.use(rootRouter.allowedMethods());
 
 export default app;
-// TODO: whats defualt?

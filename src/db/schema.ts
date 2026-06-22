@@ -14,3 +14,5 @@ export interface Database {
   nodes: NodesTable
   edges: EdgesTable
 }
+
+// TODO: DOMAIN VS ENTITY

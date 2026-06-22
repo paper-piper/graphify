@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-
+# TODO: MIGRATE TO SH OR AT LEAST UNDERSTAND
 # ─── Configuration ────────────────────────────────────────────────────────────
 
 HOST="${PGHOST:-127.0.0.1}"

@@ -1,3 +1,5 @@
+-- TODO: MIGRATE TO ENTITY AND DOMAIN
+
 CREATE TABLE nodes(
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     value VARCHAR(255)

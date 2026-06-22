@@ -1,7 +1,7 @@
-import { HTTP_STATUS } from '../httpStatus';
-import { hasCycle } from '../../graph/algorithms/hasCycle'
-import { AdjacencyList } from '../../graph/graphTypes';
-import { buildAdjacencyList } from '../../graph/buildAdjacencyList';
+import { HTTP_STATUS } from '../../httpStatus';
+import { hasCycle } from '../../../graph/algorithms/hasCycle'
+import { AdjacencyList } from '../../../graph/types';
+import { buildAdjacencyList } from '../../../graph/buildAdjacencyList';
 import { Context } from 'koa';
 
 export async function handleHasCycle(ctx: Context){

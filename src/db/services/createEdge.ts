@@ -1,4 +1,4 @@
-import { NodeTitle, NodeId } from "../../graph/graphTypes";
+import { NodeTitle, NodeId } from "../../graph/types";
 import { resolveToId } from "./helpers/resolveToId";
 import { db } from "../buildDb";
 

@@ -1,4 +1,4 @@
-import { Edge, Node } from "../../../graph/graphTypes";
+import { Edge, Node } from "../../../graph/types";
 import { db } from "../../buildDb";
 
 export async function get_nodes_and_edges(): Promise<[Node[], Edge[]]> {

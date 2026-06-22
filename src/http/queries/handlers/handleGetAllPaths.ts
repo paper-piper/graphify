@@ -1,9 +1,8 @@
-import { HTTP_STATUS } from '../httpStatus';
-import { getAllNodePaths } from '../../graph/algorithms/getAllNodePaths';
-import { AdjacencyList } from '../../graph/graphTypes';
-import { buildAdjacencyList } from '../../graph/buildAdjacencyList';
-import { pathsQueryZ } from '../schemas';
+import { HTTP_STATUS } from '../../httpStatus';
+import { NodeTitle } from '../../../graph/types';
+import { pathsQueryZ } from '../../schemas';
 import { Context } from 'koa';
+import { parseAndGetAllPaths } from '../parsers/parseAndGetAllPaths';
 import z from 'zod'
 
 export async function handleGetAllPaths(ctx: Context) {
@@ -13,10 +12,9 @@ export async function handleGetAllPaths(ctx: Context) {
         ctx.body = { error: z.treeifyError(parsed.error) };
         return;
     }
-    const { from, to } = parsed.data;
+    const { source_node_title, target_node_title } = parsed.data;
     try {
-        const adj: AdjacencyList = await buildAdjacencyList();
-        const paths = getAllNodePaths(adj, from, to);
+        const paths: NodeTitle[][] = await parseAndGetAllPaths(source_node_title, target_node_title)
         ctx.status = HTTP_STATUS.OK;
         ctx.body = { paths };
     } catch {

@@ -14,7 +14,7 @@ export async function deleteNode(ctx: Context){
         ctx.body = { error: z.treeifyError(parsed.error) }; //TODO; understand treeify and how to float error
         return;
     }
-    const { nodeTitle } = parsed.data;
+    const { node_title: nodeTitle } = parsed.data;
     try {
         await delete_node(nodeTitle)
         ctx.status = HTTP_STATUS.NO_CONTENT;

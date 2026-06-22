@@ -12,7 +12,7 @@ export async function deleteEdge(ctx: Context){
         ctx.body = { error: z.treeifyError(parsed.error)};
         return;
     }
-    const { sourceNodeTitle: sourceNodeTitle, targetNodeTitle: targetNodeTitle } = parsed.data;
+    const { source_node_title: sourceNodeTitle, target_node_title: targetNodeTitle } = parsed.data;
     try {
         await delete_edge(sourceNodeTitle, targetNodeTitle)
         ctx.status = HTTP_STATUS.NO_CONTENT;

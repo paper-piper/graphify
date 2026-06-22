@@ -1,6 +1,6 @@
-import { AdjacencyList, NodeId } from "../graphTypes";
+import { AdjacencyList, NodeId } from "../types";
 
-export function getAllNodePaths(
+export function getAllPaths(
     adj: AdjacencyList,
     current_node: NodeId, 
     target_node: NodeId,
@@ -25,7 +25,7 @@ export function getAllNodePaths(
     for (const next_node of adj.get(current_node)!){
         // create new path for each direction
         const new_path: NodeId[] = [...current_path]
-        getAllNodePaths(adj, next_node, target_node, new_path, valid_paths)
+        getAllPaths(adj, next_node, target_node, new_path, valid_paths)
     }
 
     return valid_paths;

@@ -11,7 +11,7 @@ export async function createEdge(ctx: Context){
         ctx.body = { error: z.treeifyError(parsed.error) }
         return;
     }
-    const { sourceNodeTitle: sourceNodeTitle, targetNodeTitle: targetNodeTitle } = parsed.data;
+    const { source_node_title: sourceNodeTitle, target_node_title: targetNodeTitle } = parsed.data;
     try {
         await create_edge(sourceNodeTitle, targetNodeTitle)
         ctx.status = HTTP_STATUS.CREATED

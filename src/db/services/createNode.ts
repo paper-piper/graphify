@@ -1,4 +1,4 @@
-import { NodeTitle } from "../../graph/graphTypes";
+import { NodeTitle } from "../../graph/types";
 import { db } from "../buildDb";
 
 export async function create_node(): Promise<NodeTitle> {

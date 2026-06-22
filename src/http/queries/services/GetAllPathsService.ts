@@ -1,10 +1,10 @@
 import { getAllPaths } from '../../../graph/algorithms/getAllPaths';
 import { AdjacencyList, NodeTitle, NodeId } from '../../../graph/types';
-import { buildAdjacencyList } from '../../../graph/buildAdjacencyList';
-import { resolveToId } from '../../../db/services/helpers/resolveToId';
-import { resolveToTitle } from '../../../db/services/helpers/resolveToTitle';
+import { buildAdjacencyList } from '../../../db/services/utils/buildAdjacencyList';
+import { resolveToId } from '../../../db/services/utils/resolveToId';
+import { resolveToTitle } from '../../../db/services/utils/resolveToTitle';
 
-export async function parseAndGetAllPaths(
+export async function GetAllPathsService(
     source_node_title: NodeTitle, 
     target_node_title:NodeTitle
 ): Promise<NodeTitle[][]> {

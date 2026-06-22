@@ -1,15 +1,15 @@
 import Router from '@koa/router'
-import { handleHasCycle } from './handlers/handleHasCycle';
-import { handleGetAllPaths } from './handlers/handleGetAllPaths';
-import { handleGetComponents } from './handlers/handleGetComponents';
-import { handleGetDegrees } from './handlers/handleGetDegrees';
+import { hasCycleHandler } from './hasCycleHandler';
+import { getAllPathsHandler } from './getAllPathsHandler';
+import { getComponentsHandler } from './getComponentsHandler';
+import { getDegreesHandler } from './getDegreesHandler';
 
 export const queriesRouter = new Router();
 
-queriesRouter.get('/cycles', async (ctx) => handleHasCycle(ctx))
+queriesRouter.get('/cycles', async (ctx) => hasCycleHandler(ctx))
 
-queriesRouter.get('/paths', async (ctx) => handleGetAllPaths(ctx))
+queriesRouter.get('/paths', async (ctx) => getAllPathsHandler(ctx))
 
-queriesRouter.get('/components', async (ctx) => handleGetComponents(ctx))
+queriesRouter.get('/components', async (ctx) => getComponentsHandler(ctx))
 
-queriesRouter.get('/degrees/:nodeId', async (ctx) => handleGetDegrees(ctx))
+queriesRouter.get('/degrees/:nodeId', async (ctx) => getDegreesHandler(ctx))

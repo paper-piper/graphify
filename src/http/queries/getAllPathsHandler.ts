@@ -1,11 +1,11 @@
-import { HTTP_STATUS } from '../../httpStatus';
-import { NodeTitle } from '../../../graph/types';
-import { pathsQueryZ } from '../../schemas';
+import { HTTP_STATUS } from '../httpStatus';
+import { NodeTitle } from '../../graph/types';
+import { pathsQueryZ } from '../schemas';
 import { Context } from 'koa';
-import { parseAndGetAllPaths } from '../parsers/parseAndGetAllPaths';
+import { GetAllPathsService } from './services/GetAllPathsService';
 import z from 'zod'
 
-export async function handleGetAllPaths(ctx: Context) {
+export async function getAllPathsHandler(ctx: Context) {
     const parsed = pathsQueryZ.safeParse(ctx.query);
     if (!parsed.success) {
         ctx.status = HTTP_STATUS.BAD_REQUEST;
@@ -14,7 +14,7 @@ export async function handleGetAllPaths(ctx: Context) {
     }
     const { source_node_title, target_node_title } = parsed.data;
     try {
-        const paths: NodeTitle[][] = await parseAndGetAllPaths(source_node_title, target_node_title)
+        const paths: NodeTitle[][] = await GetAllPathsService(source_node_title, target_node_title)
         ctx.status = HTTP_STATUS.OK;
         ctx.body = { paths };
     } catch {

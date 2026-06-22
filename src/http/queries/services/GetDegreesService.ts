@@ -1,11 +1,11 @@
 import { getDegrees } from '../../../graph/algorithms/getDegrees';
 import { AdjacencyList } from '../../../graph/types';
-import { buildAdjacencyList } from '../../../graph/buildAdjacencyList';
+import { buildAdjacencyList } from '../../../db/services/utils/buildAdjacencyList';
 import { NodeTitle } from '../../../graph/types';
-import { resolveToId } from '../../../db/services/helpers/resolveToId';
-import { resolveToTitle } from '../../../db/services/helpers/resolveToTitle';
+import { resolveToId } from '../../../db/services/utils/resolveToId';
+import { resolveToTitle } from '../../../db/services/utils/resolveToTitle';
 
-export async function parseAndGetDegrees(node_title: NodeTitle): Promise<NodeTitle[]> {
+export async function GetDegreesService(node_title: NodeTitle): Promise<NodeTitle[]> {
     const adj: AdjacencyList = await buildAdjacencyList();
     const [node_id] = await resolveToId(node_title)
     const id_degrees = getDegrees(adj, node_id);

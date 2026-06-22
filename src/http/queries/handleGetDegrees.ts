@@ -1,9 +1,9 @@
 
 import z from 'zod'
-import { HTTP_STATUS } from '../../httpStatus';
-import { nodeTitleZ } from '../../schemas';
+import { HTTP_STATUS } from '../httpStatus';
+import { nodeTitleZ } from '../schemas';
 import { Context } from 'koa';
-import { parseAndGetDegrees } from '../parsers/parseAndGetDegrees';
+import { GetDegreesService } from './services/GetDegreesService';
 
 export async function handleGetDegrees(ctx: Context){
     const parsed = nodeTitleZ.safeParse(ctx.params);
@@ -14,7 +14,7 @@ export async function handleGetDegrees(ctx: Context){
     }
     const { node_title: nodeTitle } = parsed.data;
     try {
-        const degrees = await parseAndGetDegrees(nodeTitle)
+        const degrees = await GetDegreesService(nodeTitle)
         ctx.status = HTTP_STATUS.OK;
         ctx.body = { node: nodeTitle, neighbors: degrees };
     } catch {

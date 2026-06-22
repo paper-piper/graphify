@@ -1,10 +1,10 @@
-import { HTTP_STATUS } from '../../httpStatus';
-import { hasCycle } from '../../../graph/algorithms/hasCycle'
-import { AdjacencyList } from '../../../graph/types';
-import { buildAdjacencyList } from '../../../graph/buildAdjacencyList';
+import { HTTP_STATUS } from '../httpStatus';
+import { hasCycle } from '../../graph/algorithms/hasCycle'
+import { AdjacencyList } from '../../graph/types';
+import { buildAdjacencyList } from '../../db/services/utils/buildAdjacencyList';
 import { Context } from 'koa';
 
-export async function handleHasCycle(ctx: Context){
+export async function hasCycleHandler(ctx: Context){
     try{
         const adj: AdjacencyList = await buildAdjacencyList()
         const cycleFound: boolean = hasCycle(adj)

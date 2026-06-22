@@ -1,6 +1,6 @@
 import { NodeId, NodeTitle } from "../../graph/types";
 import { db } from "../buildDb";
-import { resolveToId } from "./helpers/resolveToId";
+import { resolveToId } from "./utils/resolveToId";
 
 export async function delete_node(nodeTitle: NodeTitle): Promise<void> {
     const [nodeId] = await resolveToId(nodeTitle)

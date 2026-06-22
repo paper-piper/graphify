@@ -1,5 +1,5 @@
 import { HTTP_STATUS } from '../httpStatus';
-import { getConnectedComponents } from '../../graph/queries/getConnectedComponents';
+import { getConnectedComponents } from '../../graph/algorithms/getConnectedComponents';
 import { AdjacencyList } from '../../graph/graphTypes';
 import { buildAdjacencyList } from '../../graph/buildAdjacencyList';
 import { Context } from 'koa';

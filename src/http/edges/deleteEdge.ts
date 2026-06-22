@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { delete_edge } from '../../services/deleteEdge'
+import { delete_edge } from '../../db/services/deleteEdge'
 import { NoResultError } from 'kysely';
 import { edgeZ } from '../schemas'
 import { HTTP_STATUS } from '../httpStatus';

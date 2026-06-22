@@ -1,7 +1,7 @@
 import Router from '@koa/router'
 import { handleHasCycle } from './handleHasCycle';
 import { handleGetAllPaths } from './handleGetAllPaths';
-import { handleGetComponents } from './HandleGetComponents';
+import { handleGetComponents } from './handleGetComponents';
 import { handleGetDegrees } from './handleGetDegrees';
 
 export const queriesRouter = new Router();

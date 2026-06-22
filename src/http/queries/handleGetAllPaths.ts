@@ -1,5 +1,5 @@
 import { HTTP_STATUS } from '../httpStatus';
-import { getAllNodePaths } from '../../graph/queries/getAllNodePaths';
+import { getAllNodePaths } from '../../graph/algorithms/getAllNodePaths';
 import { AdjacencyList } from '../../graph/graphTypes';
 import { buildAdjacencyList } from '../../graph/buildAdjacencyList';
 import { pathsQueryZ } from '../schemas';

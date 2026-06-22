@@ -1,4 +1,4 @@
-import { create_node } from '../../services/createNode'
+import { create_node } from '../../db/services/createNode'
 import { HTTP_STATUS } from '../httpStatus';
 import { Context } from 'koa';
 

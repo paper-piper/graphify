@@ -1,5 +1,5 @@
 import { HTTP_STATUS } from '../httpStatus';
-import { hasCycle } from '../../graph/queries/hasCycle'
+import { hasCycle } from '../../graph/algorithms/hasCycle'
 import { AdjacencyList } from '../../graph/graphTypes';
 import { buildAdjacencyList } from '../../graph/buildAdjacencyList';
 import { Context } from 'koa';

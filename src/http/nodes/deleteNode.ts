@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import { NoResultError } from 'kysely';
 import { z } from 'zod';
-import { create_node } from '../../services/createNode'
-import { delete_node } from '../../services/deleteNode';
+import { create_node } from '../../db/services/createNode'
+import { delete_node } from '../../db/services/deleteNode';
 import { nodeTitleZ } from '../schemas';
 import { HTTP_STATUS } from '../httpStatus';
 import { Context } from 'koa';

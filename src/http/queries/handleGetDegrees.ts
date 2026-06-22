@@ -1,7 +1,7 @@
 
 import z from 'zod'
 import { HTTP_STATUS } from '../httpStatus';
-import { getNodeDegrees } from '../../graph/queries/getNodeDegrees';
+import { getNodeDegrees } from '../../graph/algorithms/getNodeDegrees';
 import { AdjacencyList } from '../../graph/graphTypes';
 import { buildAdjacencyList } from '../../graph/buildAdjacencyList';
 import { nodeTitleZ } from '../schemas';

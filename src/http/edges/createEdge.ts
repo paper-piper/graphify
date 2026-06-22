@@ -1,5 +1,5 @@
 import z from 'zod';
-import { create_edge } from '../../services/createEdge'
+import { create_edge } from '../../db/services/createEdge'
 import { edgeZ } from '../schemas'
 import { HTTP_STATUS } from '../httpStatus';
 import { Context } from 'koa';

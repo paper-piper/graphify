@@ -1,5 +1,5 @@
-import { NodeTitle } from "../graph/graphTypes";
-import { db } from "../db/buildDb";
+import { NodeTitle } from "../../graph/graphTypes";
+import { db } from "../buildDb";
 
 export async function create_node(): Promise<NodeTitle> {
     const results = await db

@@ -1,4 +1,4 @@
-import { NodeId } from "../graph/graph.types";
+import { NodeId } from "../graph/graphTypes";
 import { db } from "../db/buildDb";
 
 export async function delete_node(node_id: NodeId): Promise<void> {

@@ -1,4 +1,4 @@
-import { AdjacencyList, NodeId } from "../graph.types";
+import { AdjacencyList, NodeId } from "../graphTypes";
 
 export function getNodeDegrees(adj: AdjacencyList, node: NodeId): Set<NodeId>{
     if (adj.has(node))

@@ -1,13 +1,12 @@
-import { NodeId, NodeValue } from "../graph/graph.types";
+import { NodeTitle } from "../graph/graphTypes";
 import { db } from "../db/buildDb";
 
-export async function create_node(value: NodeValue = ""): Promise<NodeId> {
+export async function create_node(): Promise<NodeTitle> {
     const results = await db
         .insertInto('nodes')
-        .values({value: value})
-        .returning(['id'])
+        .returning(['id', 'title'])
         .executeTakeFirstOrThrow();
     
-    const node_id = results.id
-    return node_id;
+    const node_title = results.title
+    return node_title;
 }

@@ -1,6 +1,4 @@
-import Koa from 'koa'
 import Router from '@koa/router'
-import BodyParser from '@koa/bodyparser'
 import { createEdge } from './createEdge';
 import { deleteEdge } from './deleteEdge';
 

@@ -2,7 +2,7 @@
 
 CREATE TABLE nodes(
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    value VARCHAR(255)
+    external_id integer GENERATED ALWAYS AS IDENTITY UNIQUE,
 );
 
 CREATE TABLE edges(

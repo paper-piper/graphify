@@ -2,7 +2,7 @@ import { Generated } from 'kysely'
 
 export interface NodesTable {
   id: Generated<string>  
-  value: string
+  title: number
 }
 
 export interface EdgesTable {
@@ -15,4 +15,3 @@ export interface Database {
   edges: EdgesTable
 }
 
-// TODO: DOMAIN VS ENTITY

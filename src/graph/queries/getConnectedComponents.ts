@@ -1,4 +1,4 @@
-import { AdjacencyList, NodeId } from "../graph.types";
+import { AdjacencyList, NodeId } from "../graphTypes";
 
 export function getConnectedComponents(adj: AdjacencyList): Set<NodeId>[] {
     const components: Set<NodeId>[] = [];

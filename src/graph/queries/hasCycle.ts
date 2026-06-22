@@ -1,4 +1,4 @@
-import { AdjacencyList, NodeId } from "../graph.types";
+import { AdjacencyList, NodeId } from "../graphTypes";
 
 export function hasCycle(adj: AdjacencyList): boolean {
     const visited = new Set<NodeId>();

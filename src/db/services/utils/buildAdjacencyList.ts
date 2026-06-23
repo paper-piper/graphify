@@ -16,5 +16,3 @@ export async function buildAdjacencyList(): Promise<AdjacencyList>
 
   return adj;
 }
-
-// TODO: WHY ?

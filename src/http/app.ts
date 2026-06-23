@@ -18,7 +18,7 @@ app.use(async (ctx, next) => {
 const rootRouter = new Router();
 // TODO: handle erros
 // TODO: understand body parser
-app.use(bodyParser());  
+app.use(bodyParser());
 
 rootRouter.use('/nodes', nodesRouter.routes());
 rootRouter.use('/edges', edgesRouter.routes());

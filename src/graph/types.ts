@@ -3,7 +3,7 @@ export type NodeTitle = number;
 
 // a special data type great at querie. contains pairs of node and his
 export type AdjacencyList = Map<NodeId, Set<NodeId>>;
-// TODO domin vs entity
+
 export interface Node {
   id: NodeId;
   title: NodeTitle;

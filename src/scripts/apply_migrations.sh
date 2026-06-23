@@ -1,10 +1,11 @@
 #!/bin/sh
 set -eu
-# -- Load .env --
+
+# load env
 ENV_FILE="$(cd "$(dirname "$0")/../.." && pwd)/.env"
 [ -f "$ENV_FILE" ] && . "$ENV_FILE"
-# -- Configuration --
 
+# variables
 HOST="${PGHOST:-$DB_HOST}"
 PORT="${PGPORT:-$DB_PORT}"
 DB="${PGDATABASE:-$DATABASE}"
@@ -12,7 +13,6 @@ USER="${PGUSER:-$DB_USER}"
 export PGPASSWORD="${PGPASSWORD:-$DB_PASSWORD}"
 MIGRATIONS_DIR="$(cd "$(dirname "$0")" && pwd)/../src/db/migrations"
 
-# -- Run --
 
 echo "Connecting to $USER@$HOST:$PORT/$DB"
 echo "Running migrations from: $MIGRATIONS_DIR"

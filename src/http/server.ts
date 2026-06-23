@@ -1,4 +1,4 @@
-import app from './app';
-import { config } from '../config';
+import setup_app from './app';
 
-app.listen(config.connection.port, () => console.log('listening on ', config.connection.port));
+const app = setup_app()
+app.listen(Number(process.env.SERVER_PORT), () => console.log('listening on ', process.env.SERVER_PORT));

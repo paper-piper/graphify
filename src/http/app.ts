@@ -11,8 +11,7 @@ export default function setup_app(){
 
   const app = new Koa();
   const rootRouter = new Router();
-  // TODO: handle erros
-  // TODO: understand body parser
+
   app.use(bodyParser());
 
   rootRouter.use('/nodes', nodesRouter.routes());

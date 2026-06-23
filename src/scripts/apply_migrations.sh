@@ -1,30 +1,32 @@
-#!/usr/bin/env bash
-set -euo pipefail
-# TODO: MIGRATE TO SH OR AT LEAST UNDERSTAND
-# ─── Configuration ────────────────────────────────────────────────────────────
+#!/bin/sh
+set -eu
+# -- Load .env --
+ENV_FILE="$(cd "$(dirname "$0")/../.." && pwd)/.env"
+[ -f "$ENV_FILE" ] && . "$ENV_FILE"
+# -- Configuration --
 
-HOST="${PGHOST:-127.0.0.1}"
-PORT="${PGPORT:-6000}"
-DB="${PGDATABASE:-graphify}"
-USER="${PGUSER:-postgres}"
-export PGPASSWORD="${PGPASSWORD:-db-chef}"
+HOST="${PGHOST:-$DB_HOST}"
+PORT="${PGPORT:-$DB_PORT}"
+DB="${PGDATABASE:-$DATABASE}"
+USER="${PGUSER:-$DB_USER}"
+export PGPASSWORD="${PGPASSWORD:-$DB_PASSWORD}"
 MIGRATIONS_DIR="$(cd "$(dirname "$0")" && pwd)/../src/db/migrations"
 
-# ─── Run ──────────────────────────────────────────────────────────────────────
+# -- Run --
 
 echo "Connecting to $USER@$HOST:$PORT/$DB"
 echo "Running migrations from: $MIGRATIONS_DIR"
 
-files=$(ls "$MIGRATIONS_DIR"/*.sql 2>/dev/null | sort -V)
+files=$(ls "$MIGRATIONS_DIR"/*.sql 2>/dev/null | sort)
 
-if [[ -z "$files" ]]; then
+if [ -z "$files" ]; then
   echo "No .sql files found in $MIGRATIONS_DIR"
   exit 0
 fi
 
 for file in $files; do
   name=$(basename "$file")
-  echo "→ $name"
+  echo "-> $name"
   psql \
     --host="$HOST" \
     --port="$PORT" \

@@ -2,7 +2,7 @@ import { Generated } from 'kysely'
 
 export interface NodesTable {
   id: Generated<string>  
-  title: number
+  title: Generated<number>
 }
 
 export interface EdgesTable {

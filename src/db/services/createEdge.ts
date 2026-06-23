@@ -1,11 +1,9 @@
-import { NodeTitle, NodeId } from "../../graph/types";
-import { resolveToId } from "./utils/resolveToId";
+import { NodeId } from "../../graph/types";
 import { db } from "../buildDb";
 
-export async function create_edge(sourceNodeTitle: NodeTitle, targetNodeTitle: NodeTitle): Promise<void> {
-    const [sourceNodeId, targetNodeId]: NodeId[] = await resolveToId(sourceNodeTitle, targetNodeTitle)
+export async function create_edge(sourceNodeId: NodeId, targetNodeId: NodeId): Promise<void> {
     await db
         .insertInto('edges')
-        .values({ source_node: sourceNodeId, target_node: targetNodeId})
+        .values({ source_node: sourceNodeId, target_node: targetNodeId })
         .executeTakeFirstOrThrow();
 }

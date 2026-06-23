@@ -12,6 +12,6 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER normalize_edge_before_insert
-BEFORE INSERT ON edges
+CREATE TRIGGER normalize_edge_before_write
+BEFORE INSERT OR UPDATE ON edges
 FOR EACH ROW EXECUTE FUNCTION normalize_edge_direction();

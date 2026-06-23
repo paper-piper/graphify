@@ -1,12 +1,8 @@
-import { NodeId, NodeTitle } from "../../graph/types";
+import { NodeId } from "../../graph/types";
 import { db } from "../buildDb";
-import { resolveToId } from "./utils/resolveToId";
+import { sql } from "kysely";
 
-export async function delete_edge(sourceNodeTitle: NodeTitle, targetNodeTitle: NodeTitle): Promise<void> {
-    const [sourceNodeId, targetNodeId]: NodeId[] = await resolveToId(sourceNodeTitle, targetNodeTitle)
-    await db
-        .deleteFrom('edges')
-        .where('source_node', '=', sourceNodeId)
-        .where('target_node', '=', targetNodeId)
-        .executeTakeFirstOrThrow();
+export async function delete_edge(sourceNodeId: NodeId, targetNodeId: NodeId): Promise<boolean> {
+    const result = await sql<{ delete_edge: boolean }>`SELECT delete_edge(${sourceNodeId}::uuid, ${targetNodeId}::uuid)`.execute(db);
+    return result.rows[0].delete_edge;
 }

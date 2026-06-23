@@ -1,12 +1,13 @@
-import { NodeTitle } from "../../graph/types";
+import { sql } from "kysely";
+import { NodeId } from "../../graph/types";
 import { db } from "../buildDb";
 
-export async function create_node(): Promise<NodeTitle> {
+export async function create_node(): Promise<NodeId> {
     const results = await db
         .insertInto('nodes')
-        .returning(['id', 'title'])
+        .expression(sql`DEFAULT VALUES`)
+        .returning(['id'])
         .executeTakeFirstOrThrow();
-    
-    const node_title = results.title
-    return node_title;
+
+    return results.id;
 }

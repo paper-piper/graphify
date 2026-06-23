@@ -6,4 +6,4 @@ export const edgesRouter = new Router();
 
 edgesRouter.post('/', async (ctx) => createEdge(ctx))
 
-edgesRouter.delete('/:source_node_id/:target_node_id', async (ctx) => deleteEdge)
+edgesRouter.delete('/:source_node_title/:target_node_title', async (ctx) => deleteEdge(ctx))

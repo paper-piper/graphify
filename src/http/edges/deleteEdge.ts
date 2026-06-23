@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { delete_edge } from '../../db/services/deleteEdge'
+import { DeleteEdgeService } from './services/DeleteEdgeService';
 import { NoResultError } from 'kysely';
-import { edgeZ } from '../schemas'
+import { edgeZ } from '../schemas';
 import { HTTP_STATUS } from '../httpStatus';
 import { Context } from 'koa';
 
@@ -9,12 +9,12 @@ export async function deleteEdge(ctx: Context){
     const parsed = edgeZ.safeParse(ctx.params);
     if (!parsed.success) {
         ctx.status = HTTP_STATUS.BAD_REQUEST;
-        ctx.body = { error: z.treeifyError(parsed.error)};
+        ctx.body = { error: z.treeifyError(parsed.error) };
         return;
     }
     const { source_node_title: sourceNodeTitle, target_node_title: targetNodeTitle } = parsed.data;
     try {
-        await delete_edge(sourceNodeTitle, targetNodeTitle)
+        await DeleteEdgeService(sourceNodeTitle, targetNodeTitle);
         ctx.status = HTTP_STATUS.NO_CONTENT;
     } catch (err) {
         if (err instanceof NoResultError) {

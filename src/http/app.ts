@@ -6,6 +6,15 @@ import { edgesRouter } from './edges/edgesRouter';
 import { queriesRouter } from './queries/queriesRouter';
 
 const app = new Koa();
+app.use(async (ctx, next) => {
+  try {
+    await next();
+  } catch (err) {
+    console.error('[koa error]', err);
+    ctx.status = 500;
+    ctx.body = { error: String(err) };
+  }
+});
 const rootRouter = new Router();
 // TODO: handle erros
 // TODO: understand body parser

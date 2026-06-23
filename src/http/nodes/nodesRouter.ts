@@ -6,4 +6,4 @@ export const nodesRouter = new Router();
 
 nodesRouter.post('/', async (ctx) => createNode(ctx))
 
-nodesRouter.delete('/:nodeId', async (ctx) => deleteNode(ctx))
+nodesRouter.delete('/:node_title', async (ctx) => deleteNode(ctx))

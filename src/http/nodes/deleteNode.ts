@@ -1,8 +1,6 @@
-import { Router } from 'express';
 import { NoResultError } from 'kysely';
 import { z } from 'zod';
-import { create_node } from '../../db/services/createNode'
-import { delete_node } from '../../db/services/deleteNode';
+import { DeleteNodeService } from './services/DeleteNodeService';
 import { nodeTitleZ } from '../schemas';
 import { HTTP_STATUS } from '../httpStatus';
 import { Context } from 'koa';
@@ -11,12 +9,12 @@ export async function deleteNode(ctx: Context){
     const parsed = nodeTitleZ.safeParse(ctx.params);
     if (!parsed.success) {
         ctx.status = HTTP_STATUS.BAD_REQUEST;
-        ctx.body = { error: z.treeifyError(parsed.error) }; //TODO; understand treeify and how to float error
+        ctx.body = { error: z.treeifyError(parsed.error) };
         return;
     }
     const { node_title: nodeTitle } = parsed.data;
     try {
-        await delete_node(nodeTitle)
+        await DeleteNodeService(nodeTitle);
         ctx.status = HTTP_STATUS.NO_CONTENT;
     } catch (err) {
         if (err instanceof NoResultError) {

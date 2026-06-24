@@ -7,6 +7,6 @@ export async function create_edge(source_node_id: NodeId, target_node_id: NodeId
         .values({ source_node: source_node_id, target_node: target_node_id })
         .executeTakeFirst();
     
-    const found: boolean = (result.numInsertedOrUpdatedRows === 1n)
-    return found
+    const success: boolean = (result.numInsertedOrUpdatedRows === 1n)
+    return success
 }

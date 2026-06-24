@@ -14,7 +14,12 @@ export async function getAllPathsHandler(ctx: Context) {
     }
     const { source_node_title, target_node_title } = parsed.data;
     try {
-        const paths: NodeTitle[][] = await GetAllPathsService(source_node_title, target_node_title)
+        const paths = await GetAllPathsService(source_node_title, target_node_title)
+        if (paths === null) {
+            ctx.status = HTTP_STATUS.NOT_FOUND;
+            ctx.body = { error: 'Node not found' };
+            return;
+        }
         ctx.status = HTTP_STATUS.OK;
         ctx.body = { paths };
     } catch {

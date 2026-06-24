@@ -1,7 +1,7 @@
 import { NodeId, NodeTitle } from "../../../types";
 import { db } from "../../buildDb";
 
-export async function titleToId(...titles: NodeTitle[]): Promise<NodeId[]>{
+export async function titleToId(...titles: NodeTitle[]): Promise<(NodeId | null)[]>{
     const nodes = await db
         .selectFrom('nodes')
         .select(['nodes.id', 'nodes.title'])
@@ -9,11 +9,6 @@ export async function titleToId(...titles: NodeTitle[]): Promise<NodeId[]>{
         .execute();
 
     const title_to_id = new Map(nodes.map(n => [n.title, n.id]));
-    const sorted_id_list: NodeId[] = titles.map(title => {
-        const id = title_to_id.get(title);
-        if (id === undefined) throw new Error(`Node not found: ${title}`);
-        return id;
-    });
-    // TODO: show accurate errors
-    return sorted_id_list
+    const sorted_id_list: (NodeId | null)[] = titles.map(title => title_to_id.get(title) ?? null);
+    return sorted_id_list;
 }

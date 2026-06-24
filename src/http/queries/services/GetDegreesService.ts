@@ -5,9 +5,10 @@ import { NodeTitle } from '../../../types';
 import { titleToId } from '../../../db/services/resolvers/titleToId';
 import { idToTitle } from '../../../db/services/resolvers/idToTitle';
 
-export async function GetDegreesService(node_title: NodeTitle): Promise<NodeTitle[]> {
+export async function GetDegreesService(node_title: NodeTitle): Promise<NodeTitle[] | null> {
     const adj: AdjacencyList = await buildAdjacencyList();
     const [node_id] = await titleToId(node_title)
+    if (node_id === null) return null;
     const id_degrees = getDegrees(adj, node_id);
     const title_degrees: NodeTitle[] = await idToTitle(...id_degrees)
     return title_degrees

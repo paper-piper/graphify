@@ -14,13 +14,15 @@ export async function deleteEdge(ctx: Context){
     }
     const { source_node_title, target_node_title } = parsed.data;
     try {
-        const found_edge: boolean = await DeleteEdgeService(source_node_title, target_node_title);
-        if (found_edge){
+        const result = await DeleteEdgeService(source_node_title, target_node_title);
+        if (result === null) {
+            ctx.status = HTTP_STATUS.NOT_FOUND;
+            ctx.body = { error: 'Edge not found' };
+        } else if (result) {
             ctx.status = HTTP_STATUS.NO_CONTENT;
-        }
-        else{
-            ctx.status = HTTP_STATUS.NOT_FOUND
-            ctx.body = { error: 'edge not found' };
+        } else {
+            ctx.status = HTTP_STATUS.NOT_FOUND;
+            ctx.body = { error: 'Edge not found' };
         }
     } catch (err) {
         ctx.status = HTTP_STATUS.INTERNAL_SERVER_ERROR;

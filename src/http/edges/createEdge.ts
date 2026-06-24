@@ -13,15 +13,18 @@ export async function createEdge(ctx: Context){
     }
     const { source_node_title, target_node_title } = parsed.data;
     try {
-        await CreateEdgeService(source_node_title, target_node_title);
-        ctx.status = HTTP_STATUS.CREATED;
-    } catch (err) {
-        if (typeof err === 'object' && err !== null && 'code' in err && err.code === '23505') {
+        const result = await CreateEdgeService(source_node_title, target_node_title);
+        if (result === null) {
+            ctx.status = HTTP_STATUS.NOT_FOUND;
+            ctx.body = { error: 'Edge not found' };
+        } else if (result) {
+            ctx.status = HTTP_STATUS.CREATED;
+        } else {
             ctx.status = HTTP_STATUS.CONFLICT;
             ctx.body = { error: 'Edge already exists' };
-        } else {
-            ctx.status = HTTP_STATUS.INTERNAL_SERVER_ERROR;
-            ctx.body = { error: 'Failed to create edge' };
         }
+    } catch (err) {
+        ctx.status = HTTP_STATUS.INTERNAL_SERVER_ERROR;
+        ctx.body = { error: 'Failed to create edge' };
     }
 }

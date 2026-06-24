@@ -15,6 +15,11 @@ export async function getDegreesHandler(ctx: Context){
     const { node_title } = parsed.data;
     try {
         const degrees = await GetDegreesService(node_title)
+        if (degrees === null) {
+            ctx.status = HTTP_STATUS.NOT_FOUND;
+            ctx.body = { error: 'Node not found' };
+            return;
+        }
         ctx.status = HTTP_STATUS.OK;
         ctx.body = { node: node_title, neighbors: degrees };
     } catch {

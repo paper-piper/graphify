@@ -14,15 +14,18 @@ export async function deleteNode(ctx: Context){
     }
     const { node_title } = parsed.data;
     try {
-        await DeleteNodeService(node_title);
-        ctx.status = HTTP_STATUS.NO_CONTENT;
-    } catch (err) {
-        if (err instanceof NoResultError) {
-            ctx.status = HTTP_STATUS.NOT_FOUND;
-            ctx.body = { error: 'Node not found' };
-        } else {
-            ctx.status = HTTP_STATUS.INTERNAL_SERVER_ERROR;
-            ctx.body = { error: 'Failed to delete node' };
+        const found: boolean = await DeleteNodeService(node_title);
+        if (found){
+            ctx.status = HTTP_STATUS.NO_CONTENT;
         }
+        else{
+            ctx.status = HTTP_STATUS.NOT_FOUND;
+            ctx.body = { error: 'Node does not exist' };
+        }
+    } catch (err) {
+        console.log("Error while trying to delete node")
+        console.log(err)
+        ctx.status = HTTP_STATUS.INTERNAL_SERVER_ERROR;
+        ctx.body = { error: 'Failed to delete node' };
     }
 }

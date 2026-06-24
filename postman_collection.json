@@ -1,0 +1,232 @@
+{
+  "info": {
+    "_postman_id": "29edcecc-f552-4d65-ba81-88f9ef16af68",
+    "name": "Graphify",
+    "description": "A Node.js/TypeScript graph API supporting full CRUD for nodes and edges, with DFS-powered endpoints for connected components, cycle detection, degree analysis, and pathfinding. Built on Koa, PostgreSQL, and Kysely.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "56118132"
+  },
+  "item": [
+    {
+      "name": "Nodes",
+      "item": [
+        {
+          "name": "Create node",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}{{NODES_PATH}}",
+              "host": [
+                "{{BASE_URL}}{{NODES_PATH}}"
+              ]
+            },
+            "description": "Add a new node to the graph with a unique title identifier.\n\nthe node title is returned in the body."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete node",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}{{NODES_PATH}}/:node_title",
+              "host": [
+                "{{BASE_URL}}{{NODES_PATH}}"
+              ],
+              "path": [
+                ":node_title"
+              ],
+              "variable": [
+                {
+                  "key": "node_title",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "Create, retrieve, and delete graph nodes. Each node has a title (acending number) which is automaticaly generated when created.",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Edges",
+      "item": [
+        {
+          "name": "Create edge",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"source_node_title\": \"{{source_node_title}}\",\n  \"target_node_title\": \"{{target_node_title}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}{{EDGES_PATH}}",
+              "host": [
+                "{{BASE_URL}}{{EDGES_PATH}}"
+              ]
+            },
+            "description": "Create an undirected connection between two nodes."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete edge",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}{{EDGES_PATH}}/:source_node_title/:target_node_title",
+              "host": [
+                "{{BASE_URL}}{{EDGES_PATH}}"
+              ],
+              "path": [
+                ":source_node_title",
+                ":target_node_title"
+              ],
+              "variable": [
+                {
+                  "key": "source_node_title",
+                  "value": "1"
+                },
+                {
+                  "key": "target_node_title",
+                  "value": "3"
+                }
+              ]
+            },
+            "description": "Remove an edge between two nodes."
+          },
+          "response": []
+        }
+      ],
+      "description": "Create and delete undirected edges between nodes."
+    },
+    {
+      "name": "Queries",
+      "item": [
+        {
+          "name": "Cycle detection",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}{{QUERIES_PATH}}/cycles",
+              "host": [
+                "{{BASE_URL}}{{QUERIES_PATH}}"
+              ],
+              "path": [
+                "cycles"
+              ]
+            },
+            "description": "Detects whether the graph contains any cycles."
+          },
+          "response": []
+        },
+        {
+          "name": "All paths",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}{{QUERIES_PATH}}/paths?source_node_title=1&target_node_title=2",
+              "host": [
+                "{{BASE_URL}}{{QUERIES_PATH}}"
+              ],
+              "path": [
+                "paths"
+              ],
+              "query": [
+                {
+                  "key": "source_node_title",
+                  "value": "1"
+                },
+                {
+                  "key": "target_node_title",
+                  "value": "2"
+                }
+              ]
+            },
+            "description": "Finds all possible paths between two specified nodes using DFS."
+          },
+          "response": []
+        },
+        {
+          "name": "Connected components",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}{{QUERIES_PATH}}/components",
+              "host": [
+                "{{BASE_URL}}{{QUERIES_PATH}}"
+              ],
+              "path": [
+                "components"
+              ]
+            },
+            "description": "Returns all connected subgraphs as separate components using DFS."
+          },
+          "response": []
+        },
+        {
+          "name": "Degree analysis",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}{{QUERIES_PATH}}/degrees/:node_title",
+              "host": [
+                "{{BASE_URL}}{{QUERIES_PATH}}"
+              ],
+              "path": [
+                "degrees",
+                ":node_title"
+              ],
+              "variable": [
+                {
+                  "key": "node_title",
+                  "value": "1"
+                }
+              ]
+            },
+            "description": "Returns the in/out degree count for each node in the graph."
+          },
+          "response": []
+        }
+      ],
+      "description": "Global graph analysis endpoints powered by depth-first search:\n\n- Connected components: Identify all connected subgraphs\n    \n- Cycle detection: Determine if the graph contains cycles\n    \n- Degree analysis: Calculate in/out degree for each node\n    \n- All paths: Find all possible paths between two nodes"
+    }
+  ]
+}

@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import { envSchema } from './schema';
 
 export function load_env(){
-    dotenv.config();
+    dotenv.config({ quiet: true });
     const result = envSchema.safeParse(process.env);
 
     if (!result.success) {

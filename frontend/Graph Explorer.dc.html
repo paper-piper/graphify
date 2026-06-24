@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+
+<!-- Application modules (plain globals on window.GraphExplorer). Loaded as
+     classic scripts so they're all defined before the DC runtime boots and
+     evaluates the <script data-dc-script> Component below. Order follows
+     dependencies: config/constants -> api -> graph -> view -> interactions. -->
+<script src="./js/config.js"></script>
+<script src="./js/constants.js"></script>
+<script src="./js/api/http.js"></script>
+<script src="./js/api/nodesApi.js"></script>
+<script src="./js/api/edgesApi.js"></script>
+<script src="./js/api/queriesApi.js"></script>
+<script src="./js/graph/store.js"></script>
+<script src="./js/graph/physics.js"></script>
+<script src="./js/view/styles.js"></script>
+<script src="./js/view/panels.js"></script>
+<script src="./js/view/viewModel.js"></script>
+<script src="./js/interactions/pointer.js"></script>
+<script src="./js/interactions/actions.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  html,body{height:100%;margin:0;}
+  *{box-sizing:border-box;}
+  @keyframes ringpulse{0%{opacity:.18}50%{opacity:.55}100%{opacity:.18}}
+</style>
+</helmet>
+<div style="display:flex;height:100vh;width:100%;font-family:'Helvetica Neue',Arial,sans-serif;color:#1f1f23;background:#fbfbf9;overflow:hidden;">
+
+  <aside style="width:308px;flex:none;height:100%;background:#ffffff;border-right:1px solid #ececea;display:flex;flex-direction:column;">
+    <div style="padding:22px 22px 16px;border-bottom:1px solid #f0f0ee;">
+      <div style="display:flex;align-items:center;gap:9px;">
+        <div style="width:13px;height:13px;border-radius:50%;border:2px solid #1f1f23;"></div>
+        <div style="font-size:15px;font-weight:600;letter-spacing:-0.01em;">Graph Explorer</div>
+      </div>
+      <div style="margin-top:7px;font:500 11px/1 'JetBrains Mono',monospace;color:#9a9a96;letter-spacing:0.02em;">{{ stats.nodeCount }} NODES &middot; {{ stats.edgeCount }} EDGES &middot; UNDIRECTED</div>
+    </div>
+
+    <div style="flex:1;overflow-y:auto;padding:20px 22px 28px;">
+
+      <div style="font:600 10px/1 'JetBrains Mono',monospace;letter-spacing:0.12em;color:#a7a7a2;margin-bottom:11px;">BUILD</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <button onClick="{{ addNode }}" style="display:flex;align-items:center;gap:10px;width:100%;padding:11px 13px;border-radius:9px;border:none;background:oklch(0.55 0.15 264);color:#fff;font:500 13px/1 'Helvetica Neue',Arial,sans-serif;cursor:pointer;" style-hover="background:oklch(0.5 0.15 264);">
+          <span style="font-size:16px;line-height:0;margin-top:-1px;">+</span> Add node
+        </button>
+        <button onClick="{{ toggleConnect }}" style="{{ connectStyle }}">
+          <span>Connect nodes</span>
+          <span style="font:500 10px/1 'JetBrains Mono',monospace;opacity:.7;">{{ connectHint }}</span>
+        </button>
+        <button onClick="{{ deleteSelected }}" style="{{ deleteStyle }}">
+          <span>Delete selected</span>
+          <span style="font:500 10px/1 'JetBrains Mono',monospace;opacity:.7;">{{ deleteHint }}</span>
+        </button>
+      </div>
+
+      <div style="font:600 10px/1 'JetBrains Mono',monospace;letter-spacing:0.12em;color:#a7a7a2;margin:26px 0 11px;">ANALYZE</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <button onClick="{{ detectCycles }}" style="display:flex;align-items:center;justify-content:space-between;width:100%;padding:11px 13px;border-radius:9px;border:1px solid #e7e7e3;background:#fff;color:#27272a;font:500 13px/1 'Helvetica Neue',Arial,sans-serif;cursor:pointer;" style-hover="background:#fafafa;">Check for cycles</button>
+        <button onClick="{{ findComponents }}" style="display:flex;align-items:center;justify-content:space-between;width:100%;padding:11px 13px;border-radius:9px;border:1px solid #e7e7e3;background:#fff;color:#27272a;font:500 13px/1 'Helvetica Neue',Arial,sans-serif;cursor:pointer;" style-hover="background:#fafafa;">Connected components</button>
+        <button onClick="{{ startPath }}" style="{{ pathStyle }}">
+          <span>Find all paths</span>
+          <span style="font:500 10px/1 'JetBrains Mono',monospace;opacity:.7;">{{ pathHint }}</span>
+        </button>
+      </div>
+
+      <div style="height:1px;background:#f0f0ee;margin:24px 0;"></div>
+
+      <div style="font:600 10px/1 'JetBrains Mono',monospace;letter-spacing:0.12em;color:#a7a7a2;margin-bottom:12px;">RESULTS</div>
+
+      <sc-if value="{{ panelNone }}" hint-placeholder-val="{{ true }}">
+        <div style="font-size:12.5px;line-height:1.65;color:#a2a29d;">Select a node to see its neighbors and degree, or run a query above. Results highlight on the canvas.</div>
+      </sc-if>
+
+      <sc-if value="{{ panelNeighbors }}">
+        <div>
+          <div style="display:flex;align-items:baseline;gap:10px;">
+            <div style="font:600 15px/1 'JetBrains Mono',monospace;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:oklch(0.95 0.03 264);color:oklch(0.5 0.15 264);">{{ neighbor.label }}</div>
+            <div>
+              <div style="font:600 22px/1 'JetBrains Mono',monospace;color:#1f1f23;">{{ neighbor.degree }}</div>
+              <div style="font:500 10px/1 'JetBrains Mono',monospace;color:#a7a7a2;letter-spacing:0.08em;margin-top:3px;">DEGREE</div>
+            </div>
+          </div>
+          <div style="font-size:11px;color:#9a9a96;margin:16px 0 8px;letter-spacing:0.04em;">NEIGHBORS</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">
+            <sc-for list="{{ neighbor.chips }}" as="c" hint-placeholder-count="3">
+              <span style="font:500 12px/1 'JetBrains Mono',monospace;padding:6px 10px;border-radius:6px;background:#f4f4f1;color:#3a3a3e;">{{ c.label }}</span>
+            </sc-for>
+            <sc-if value="{{ neighbor.isolated }}">
+              <span style="font-size:12px;color:#b4b4af;font-style:italic;">No neighbors &mdash; isolated node</span>
+            </sc-if>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ panelCycle }}">
+        <div>
+          <div style="display:flex;align-items:center;gap:9px;padding:13px;border-radius:9px;background:{{ cycle.bg }};">
+            <div style="width:9px;height:9px;border-radius:50%;background:{{ cycle.dot }};flex:none;"></div>
+            <div style="font-size:13px;font-weight:600;color:{{ cycle.fg }};">{{ cycle.headline }}</div>
+          </div>
+          <div style="font-size:12.5px;line-height:1.6;color:#76766f;margin-top:12px;">{{ cycle.detail }}</div>
+          <sc-if value="{{ cycle.hasCycle }}">
+            <div>
+              <div style="font-size:11px;color:#9a9a96;margin:16px 0 8px;letter-spacing:0.04em;">ONE CYCLE FOUND</div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;">
+                <sc-for list="{{ cycle.chips }}" as="c" hint-placeholder-count="3">
+                  <span style="font:500 12px/1 'JetBrains Mono',monospace;padding:6px 10px;border-radius:6px;background:oklch(0.95 0.05 25);color:oklch(0.5 0.18 25);">{{ c.label }}</span>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ panelComponents }}">
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="font-size:12.5px;color:#76766f;line-height:1.6;margin-bottom:2px;">{{ components.summary }}</div>
+          <sc-for list="{{ components.list }}" as="g" hint-placeholder-count="2">
+            <div style="border:1px solid #eeeeec;border-radius:9px;padding:11px 12px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:9px;">
+                <div style="width:9px;height:9px;border-radius:50%;background:{{ g.color }};"></div>
+                <div style="font-size:12.5px;font-weight:600;">{{ g.title }}</div>
+                <div style="margin-left:auto;font:500 11px/1 'JetBrains Mono',monospace;color:#a7a7a2;">{{ g.count }}</div>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:5px;">
+                <sc-for list="{{ g.members }}" as="m" hint-placeholder-count="3">
+                  <span style="font:500 11px/1 'JetBrains Mono',monospace;padding:5px 8px;border-radius:5px;background:{{ m.bg }};color:{{ m.fg }};">{{ m.label }}</span>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ panelPaths }}">
+        <div>
+          <div style="font-size:12.5px;color:#76766f;line-height:1.6;">{{ paths.summary }}</div>
+          <div style="font-size:11px;color:#9a9a96;margin:14px 0 8px;letter-spacing:0.04em;">{{ paths.subhead }}</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <sc-for list="{{ paths.list }}" as="p" hint-placeholder-count="3">
+              <div data-idx="{{ p.idx }}" onClick="{{ selectPath }}" style="{{ p.style }}">
+                <span style="font:500 12px/1.3 'JetBrains Mono',monospace;">{{ p.seq }}</span>
+                <span style="font:500 10px/1 'JetBrains Mono',monospace;opacity:.6;">{{ p.len }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+    </div>
+
+    <div style="padding:14px 22px;border-top:1px solid #f0f0ee;display:flex;align-items:center;gap:10px;">
+      <button onClick="{{ togglePhysics }}" style="{{ physicsStyle }}">
+        <span style="width:7px;height:7px;border-radius:50%;background:{{ physicsDot }};"></span>
+        Physics {{ physicsLabel }}
+      </button>
+      <button onClick="{{ resetGraph }}" style="flex:none;padding:9px 12px;border-radius:8px;border:1px solid #e7e7e3;background:#fff;color:#76766f;font:500 12px/1 'Helvetica Neue',Arial,sans-serif;cursor:pointer;" style-hover="background:#fafafa;">Reset</button>
+    </div>
+  </aside>
+
+  <main style="flex:1;position:relative;min-width:0;background-color:#fbfbf9;background-image:radial-gradient(circle, #e6e6e1 1px, transparent 1px);background-size:26px 26px;">
+
+    <sc-if value="{{ hintShow }}">
+      <div style="position:absolute;top:20px;left:50%;transform:translateX(-50%);z-index:5;display:flex;align-items:center;gap:12px;background:#1f1f23;color:#fff;padding:9px 9px 9px 16px;border-radius:999px;box-shadow:0 6px 20px rgba(0,0,0,0.14);">
+        <span style="font-size:12.5px;font-weight:500;">{{ hintText }}</span>
+        <button onClick="{{ cancelMode }}" style="border:none;background:rgba(255,255,255,0.16);color:#fff;font-size:11px;font-weight:500;padding:5px 11px;border-radius:999px;cursor:pointer;">Cancel</button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isEmpty }}">
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;">
+        <div style="font-size:13px;color:#bdbdb7;font:500 13px/1 'JetBrains Mono',monospace;">empty canvas &mdash; add a node to begin</div>
+      </div>
+    </sc-if>
+
+    <svg ref="{{ setSvg }}" viewBox="{{ vb }}" preserveAspectRatio="none" width="100%" height="100%" style="display:block;position:absolute;inset:0;">
+      <rect x="0" y="0" width="{{ vw }}" height="{{ vh }}" fill="transparent" onPointerDown="{{ onBgDown }}"></rect>
+
+      <g>
+        <sc-for list="{{ edges }}" as="e" hint-placeholder-count="0">
+          <g>
+            <line x1="{{ e.x1 }}" y1="{{ e.y1 }}" x2="{{ e.x2 }}" y2="{{ e.y2 }}" stroke="transparent" strokeWidth="16" data-id="{{ e.id }}" onPointerDown="{{ onEdgeDown }}" style="cursor:pointer;"></line>
+            <line x1="{{ e.x1 }}" y1="{{ e.y1 }}" x2="{{ e.x2 }}" y2="{{ e.y2 }}" stroke="{{ e.stroke }}" strokeWidth="{{ e.sw }}" strokeLinecap="round" style="pointer-events:none;"></line>
+          </g>
+        </sc-for>
+      </g>
+
+      <g>
+        <sc-for list="{{ nodes }}" as="n" hint-placeholder-count="0">
+          <g data-id="{{ n.id }}" onPointerDown="{{ onNodeDown }}" style="cursor:grab;">
+            <sc-if value="{{ n.ring }}">
+              <circle cx="{{ n.x }}" cy="{{ n.y }}" r="{{ n.ringR }}" fill="none" stroke="{{ n.ringColor }}" strokeWidth="2" style="animation:ringpulse 1.3s ease-in-out infinite;pointer-events:none;"></circle>
+            </sc-if>
+            <circle cx="{{ n.x }}" cy="{{ n.y }}" r="20" fill="{{ n.fill }}" stroke="{{ n.stroke }}" strokeWidth="{{ n.sw }}"></circle>
+            <text x="{{ n.x }}" y="{{ n.y }}" textAnchor="middle" dominantBaseline="central" fill="{{ n.lc }}" style="font:600 13px 'JetBrains Mono',monospace;pointer-events:none;user-select:none;">{{ n.label }}</text>
+          </g>
+        </sc-for>
+      </g>
+    </svg>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+// Thin orchestrator. All real logic lives in window.GraphExplorer.* modules
+// (see <head>). This class only owns transient UI state, the animation loop,
+// and the bridge between the DC runtime lifecycle and those modules.
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.state = { mode:'idle', physicsOn:true, panel:{type:'none'}, selection:null, pending:null, pathSrc:null };
+    this.store = new GraphExplorer.GraphStore();
+    this.hl = { nodes:new Set(), edges:new Set(), kind:null, comp:null };
+    this.pathsData = null;
+    this.activePath = 0;
+    const { view } = GraphExplorer.constants;
+    this.vw = view.vw; this.vh = view.vh;
+    this.drag = null;
+    this.svgEl = null;
+    this._onMove = (e) => GraphExplorer.pointer.onMove(this, e);
+    this._onUp = () => GraphExplorer.pointer.onUp(this);
+    this._loop = this._loop.bind(this);
+  }
+
+  componentDidMount(){
+    this._measure();
+    GraphExplorer.actions.loadGraph(this);
+    document.addEventListener('pointermove', this._onMove);
+    document.addEventListener('pointerup', this._onUp);
+    if(this.svgEl && window.ResizeObserver){
+      this._ro = new ResizeObserver(() => { this._measure(); this.forceUpdate(); });
+      this._ro.observe(this.svgEl);
+    }
+    this._raf = requestAnimationFrame(this._loop);
+  }
+
+  componentWillUnmount(){
+    document.removeEventListener('pointermove', this._onMove);
+    document.removeEventListener('pointerup', this._onUp);
+    if(this._ro) this._ro.disconnect();
+    if(this._raf) cancelAnimationFrame(this._raf);
+  }
+
+  _measure(){
+    if(!this.svgEl) return;
+    const r = this.svgEl.getBoundingClientRect();
+    if(r.width > 0 && r.height > 0){ this.vw = r.width; this.vh = r.height; }
+  }
+
+  _loop(){
+    if(this.state.physicsOn || this.drag){
+      if(this.state.physicsOn) GraphExplorer.physics.step(this.store, this.vw, this.vh, this.drag);
+      this.forceUpdate();
+    }
+    this._raf = requestAnimationFrame(this._loop);
+  }
+
+  renderVals(){
+    return GraphExplorer.buildViewModel(this);
+  }
+}
+</script>
+</body>
+</html>

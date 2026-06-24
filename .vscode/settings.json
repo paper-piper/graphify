@@ -1,0 +1,7 @@
+{
+  // The frontend uses the DC templating runtime, which binds computed style
+  // objects via `style="{{ expr }}"`. VS Code's embedded-CSS validator parses
+  // those interpolations as CSS and reports false "} expected" errors. Disable
+  // embedded style validation in HTML — there is no real CSS to lint here.
+  "html.validate.styles": false
+}

@@ -12,4 +12,4 @@ queriesRouter.get('/paths', async (ctx) => getAllPathsHandler(ctx))
 
 queriesRouter.get('/components', async (ctx) => getComponentsHandler(ctx))
 
-queriesRouter.get('/degrees/:nodeId', async (ctx) => getDegreesHandler(ctx))
+queriesRouter.get('/degrees/:node_title', async (ctx) => getDegreesHandler(ctx))

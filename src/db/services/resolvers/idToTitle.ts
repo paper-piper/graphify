@@ -1,14 +1,14 @@
 import { NodeId, NodeTitle } from "../../../graph/types";
 import { db } from "../../buildDb";
 
-export async function resolveToTitle(...ids: NodeId[]): Promise<NodeTitle[]>{
+export async function idToTitle(...ids: NodeId[]): Promise<NodeTitle[]>{
     const nodes = await db
         .selectFrom('nodes')
         .select(['nodes.title', 'nodes.id'])
         .where('nodes.id', 'in', ids)
         .execute();
 
-    const map = new Map(nodes.map(n => [n.id, n.title]));
+    const id_to_title = new Map(nodes.map(n => [n.id, n.title]));
     // validation isn't required since it is internal function only.
-    return ids.map(id => map.get(id)!); 
+    return ids.map(id => id_to_title.get(id)!); 
 }

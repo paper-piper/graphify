@@ -1,5 +1,5 @@
-import { NodeId } from "../../graph/types";
-import { db } from "../buildDb";
+import { NodeId } from "../../../graph/types";
+import { db } from "../../buildDb";
 import { sql } from "kysely";
 
 export async function delete_edge(sourceNodeId: NodeId, targetNodeId: NodeId): Promise<boolean> {

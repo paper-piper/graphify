@@ -1,7 +1,7 @@
 import { HTTP_STATUS } from '../httpStatus';
 import { hasCycle } from '../../graph/algorithms/hasCycle'
 import { AdjacencyList } from '../../graph/types';
-import { buildAdjacencyList } from '../../db/services/utils/buildAdjacencyList';
+import { buildAdjacencyList } from '../../db/services/queries/buildAdjacencyList';
 import { Context } from 'koa';
 
 export async function hasCycleHandler(ctx: Context){

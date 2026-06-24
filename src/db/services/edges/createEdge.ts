@@ -1,5 +1,5 @@
-import { NodeId } from "../../graph/types";
-import { db } from "../buildDb";
+import { NodeId } from "../../../graph/types";
+import { db } from "../../buildDb";
 
 export async function create_edge(sourceNodeId: NodeId, targetNodeId: NodeId): Promise<void> {
     await db

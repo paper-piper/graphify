@@ -1,9 +1,9 @@
 import { NodeTitle } from '../../../graph/types';
-import { create_node } from '../../../db/services/createNode';
-import { resolveToTitle } from '../../../db/services/utils/resolveToTitle';
+import { create_node } from '../../../db/services/nodes/createNode';
+import { idToTitle } from '../../../db/services/resolvers/idToTitle';
 
 export async function CreateNodeService(): Promise<NodeTitle> {
     const nodeId = await create_node();
-    const [nodeTitle] = await resolveToTitle(nodeId);
+    const [nodeTitle] = await idToTitle(nodeId);
     return nodeTitle;
 }

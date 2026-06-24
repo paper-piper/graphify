@@ -1,5 +1,6 @@
 import { getConnectedComponents } from '../../../graph/algorithms/getConnectedComponents';
-import { AdjacencyList, NodeId, NodeTitle } from '../../../graph/types';
+import { AdjacencyList } from '../../../graph/types';
+import { NodeId, NodeTitle } from '../../../types';
 import { buildAdjacencyList } from '../../../db/services/queries/buildAdjacencyList';
 import { idToTitle } from '../../../db/services/resolvers/idToTitle';
 

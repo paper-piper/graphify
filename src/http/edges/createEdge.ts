@@ -1,19 +1,19 @@
 import z from 'zod';
 import { CreateEdgeService } from './services/CreateEdgeService';
-import { edgeZ } from '../schemas';
+import { edge_z } from '../schemas';
 import { HTTP_STATUS } from '../httpStatus';
 import { Context } from 'koa';
 
 export async function createEdge(ctx: Context){
-    const parsed = edgeZ.safeParse(ctx.request.body);
+    const parsed = edge_z.safeParse(ctx.request.body);
     if (!parsed.success) {
         ctx.status = HTTP_STATUS.BAD_REQUEST;
         ctx.body = { error: z.treeifyError(parsed.error) };
         return;
     }
-    const { source_node_title: sourceNodeTitle, target_node_title: targetNodeTitle } = parsed.data;
+    const { source_node_title, target_node_title } = parsed.data;
     try {
-        await CreateEdgeService(sourceNodeTitle, targetNodeTitle);
+        await CreateEdgeService(source_node_title, target_node_title);
         ctx.status = HTTP_STATUS.CREATED;
     } catch (err) {
         if (typeof err === 'object' && err !== null && 'code' in err && err.code === '23505') {

@@ -1,9 +1,9 @@
-import { NodeId } from "../../../graph/types";
+import { NodeId } from "../../../types";
 import { db } from "../../buildDb";
 
-export async function create_edge(sourceNodeId: NodeId, targetNodeId: NodeId): Promise<void> {
+export async function create_edge(source_node_id: NodeId, target_node_id: NodeId): Promise<void> {
     await db
         .insertInto('edges')
-        .values({ source_node: sourceNodeId, target_node: targetNodeId })
+        .values({ source_node: source_node_id, target_node: target_node_id })
         .executeTakeFirstOrThrow();
 }

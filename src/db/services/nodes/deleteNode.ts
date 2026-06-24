@@ -1,9 +1,9 @@
-import { NodeId } from "../../../graph/types";
+import { NodeId } from "../../../types";
 import { db } from "../../buildDb";
 
-export async function delete_node(nodeId: NodeId): Promise<void> {
+export async function delete_node(node_id: NodeId): Promise<void> {
     await db
         .deleteFrom('nodes')
-        .where('id', '=', nodeId)
+        .where('id', '=', node_id)
         .executeTakeFirstOrThrow();
 }

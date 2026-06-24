@@ -7,9 +7,9 @@ import { Context } from 'koa';
 export async function hasCycleHandler(ctx: Context){
     try{
         const adj: AdjacencyList = await buildAdjacencyList()
-        const cycleFound: boolean = hasCycle(adj)
+        const cycle_found: boolean = hasCycle(adj)
         ctx.status = HTTP_STATUS.OK;
-        ctx.body = {cycleFound};
+        ctx.body = {cycle_found};
     }
     catch{
         ctx.status = HTTP_STATUS.INTERNAL_SERVER_ERROR;

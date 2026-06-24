@@ -1,12 +1,12 @@
 import { HTTP_STATUS } from '../httpStatus';
-import { NodeTitle } from '../../graph/types';
-import { pathsQueryZ } from '../schemas';
+import { NodeTitle } from '../../types';
+import { paths_query_z } from '../schemas';
 import { Context } from 'koa';
 import { GetAllPathsService } from './services/GetAllPathsService';
 import z from 'zod'
 
 export async function getAllPathsHandler(ctx: Context) {
-    const parsed = pathsQueryZ.safeParse(ctx.query);
+    const parsed = paths_query_z.safeParse(ctx.query);
     if (!parsed.success) {
         ctx.status = HTTP_STATUS.BAD_REQUEST;
         ctx.body = { error: z.treeifyError(parsed.error) };

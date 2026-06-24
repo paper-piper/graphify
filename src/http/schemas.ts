@@ -1,15 +1,15 @@
 import z from "zod";
 
-export const edgeZ = z.object({
+export const edge_z = z.object({
     source_node_title: z.coerce.number().min(1),
     target_node_title: z.coerce.number().min(1),
 });
 
-export const pathsQueryZ = z.object({
+export const paths_query_z = z.object({
     source_node_title: z.coerce.number().min(1),
     target_node_title: z.coerce.number().min(1),
 });
 
-export const nodeTitleZ = z.object({
+export const node_title_z = z.object({
     node_title: z.coerce.number().int().min(1),
 });

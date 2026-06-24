@@ -10,15 +10,15 @@ export default function setup_app(){
   load_env()
 
   const app = new Koa();
-  const rootRouter = new Router();
+  const root_router = new Router();
 
   app.use(bodyParser());
 
-  rootRouter.use('/nodes', nodesRouter.routes());
-  rootRouter.use('/edges', edgesRouter.routes());
-  rootRouter.use('/queries', queriesRouter.routes());
+  root_router.use('/nodes', nodesRouter.routes());
+  root_router.use('/edges', edgesRouter.routes());
+  root_router.use('/queries', queriesRouter.routes());
 
-  app.use(rootRouter.routes())
-  app.use(rootRouter.allowedMethods());
+  app.use(root_router.routes())
+  app.use(root_router.allowedMethods());
   return app;
 }

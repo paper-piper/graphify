@@ -1,20 +1,20 @@
 import { NoResultError } from 'kysely';
 import { z } from 'zod';
 import { DeleteNodeService } from './services/DeleteNodeService';
-import { nodeTitleZ } from '../schemas';
+import { node_title_z } from '../schemas';
 import { HTTP_STATUS } from '../httpStatus';
 import { Context } from 'koa';
 
 export async function deleteNode(ctx: Context){
-    const parsed = nodeTitleZ.safeParse(ctx.params);
+    const parsed = node_title_z.safeParse(ctx.params);
     if (!parsed.success) {
         ctx.status = HTTP_STATUS.BAD_REQUEST;
         ctx.body = { error: z.treeifyError(parsed.error) };
         return;
     }
-    const { node_title: nodeTitle } = parsed.data;
+    const { node_title } = parsed.data;
     try {
-        await DeleteNodeService(nodeTitle);
+        await DeleteNodeService(node_title);
         ctx.status = HTTP_STATUS.NO_CONTENT;
     } catch (err) {
         if (err instanceof NoResultError) {

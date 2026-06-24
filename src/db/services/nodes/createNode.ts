@@ -1,13 +1,13 @@
 import { sql } from "kysely";
-import { NodeId } from "../../../graph/types";
+import { NodeId } from "../../../types";
 import { db } from "../../buildDb";
 
 export async function create_node(): Promise<NodeId> {
-    const results = await db
+    const node_results = await db
         .insertInto('nodes')
         .expression(sql`DEFAULT VALUES`)
         .returning(['id'])
         .executeTakeFirstOrThrow();
 
-    return results.id;
+    return node_results.id;
 }

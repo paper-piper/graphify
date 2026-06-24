@@ -1,5 +1,5 @@
 import { HTTP_STATUS } from '../httpStatus';
-import { NodeTitle } from '../../graph/types';
+import { NodeTitle } from '../../types';
 import { Context } from 'koa';
 import { GetComponentsService } from './services/GetComponentsService';
 

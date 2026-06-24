@@ -1,4 +1,4 @@
-import { NodeId, NodeTitle } from "../../../graph/types";
+import { NodeId, NodeTitle } from "../../../types";
 import { db } from "../../buildDb";
 
 export async function titleToId(...titles: NodeTitle[]): Promise<NodeId[]>{

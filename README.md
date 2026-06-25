@@ -105,9 +105,3 @@ Nodes have two identifiers:
 - **`title`** — an auto-incrementing integer, exposed through the API as the user-facing identifier.
 
 All API endpoints accept and return `title`. The resolvers (`titleToId`, `idToTitle`) translate between the two as needed.
-
-## Running tests
-
-```bash
-npm test
-```

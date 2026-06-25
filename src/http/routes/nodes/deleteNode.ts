@@ -11,7 +11,7 @@ export async function deleteNode(ctx: Context){
     try {
         const status = await DeleteNodeService(data.node_title);
         handleNodeStatus(status, ctx);
-    } catch {
-        handleServerError(ctx, 'Failed to delete node');
+    } catch (err) {
+        handleServerError(ctx, 'Failed to delete node', err);
     }
 }

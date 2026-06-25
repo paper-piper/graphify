@@ -11,7 +11,7 @@ export async function getDegreesHandler(ctx: Context){
     try {
         const [degrees, status] = await GetDegreesService(data.node_title);
         handleQueryStatus(status, ctx, { node: data.node_title, neighbors: degrees });
-    } catch {
-        handleServerError(ctx, 'Failed to get node degrees');
+    } catch (err) {
+        handleServerError(ctx, 'Failed to get node degrees', err);
     }
 }

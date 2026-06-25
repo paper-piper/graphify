@@ -11,7 +11,7 @@ export async function createEdge(ctx: Context){
     try {
         const status = await CreateEdgeService(data.source_node_title, data.target_node_title);
         handleEdgeStatus(status, ctx);
-    } catch {
-        handleServerError(ctx, 'Failed to create edge');
+    } catch (err) {
+        handleServerError(ctx, 'Failed to create edge', err);
     }
 }

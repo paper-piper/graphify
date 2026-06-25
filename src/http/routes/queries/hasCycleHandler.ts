@@ -11,7 +11,7 @@ export async function hasCycleHandler(ctx: Context){
         const adj: AdjacencyList = await buildAdjacencyList();
         const cycle_found: boolean = hasCycle(adj);
         handleQueryStatus(QUERY_STATUS.OK, ctx, { cycle_found });
-    } catch {
-        handleServerError(ctx, 'Failed to find cycles');
+    } catch (err) {
+        handleServerError(ctx, 'Failed to find cycles', err);
     }
 }

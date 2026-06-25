@@ -11,7 +11,7 @@ export async function deleteEdge(ctx: Context){
     try {
         const status = await DeleteEdgeService(data.source_node_title, data.target_node_title);
         handleEdgeStatus(status, ctx);
-    } catch {
-        handleServerError(ctx, 'Failed to delete edge');
+    } catch (err) {
+        handleServerError(ctx, 'Failed to delete edge', err);
     }
 }

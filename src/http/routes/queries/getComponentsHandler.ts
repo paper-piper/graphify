@@ -8,7 +8,7 @@ export async function getComponentsHandler(ctx: Context){
     try {
         const components = await GetComponentsService();
         handleQueryStatus(QUERY_STATUS.OK, ctx, { components });
-    } catch {
-        handleServerError(ctx, 'Failed to find connected components');
+    } catch (err) {
+        handleServerError(ctx, 'Failed to find connected components', err);
     }
 }

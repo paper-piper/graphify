@@ -11,7 +11,7 @@ export async function getAllPathsHandler(ctx: Context) {
     try {
         const [paths, status] = await GetAllPathsService(data.source_node_title, data.target_node_title);
         handleQueryStatus(status, ctx, { paths });
-    } catch {
-        handleServerError(ctx, 'Failed to find paths');
+    } catch (err) {
+        handleServerError(ctx, 'Failed to find paths', err);
     }
 }

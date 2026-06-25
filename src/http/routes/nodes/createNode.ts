@@ -9,7 +9,6 @@ export async function createNode(ctx: Context){
         const node_title = await CreateNodeService();
         handleNodeStatus(NODE_STATUS.CREATED, ctx, { id: node_title });
     } catch (err) {
-        console.error('[createNode]', err);
-        handleServerError(ctx, 'Failed to create node');
+        handleServerError(ctx, 'Failed to create node', err);
     }
 }

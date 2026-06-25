@@ -5,9 +5,11 @@ import { nodesRouter } from './nodes/nodesRouter';
 import { edgesRouter } from './edges/edgesRouter';
 import { queriesRouter } from './queries/queriesRouter';
 import { load_env } from '../env/load_env';
+import { buildDb } from '../db/buildDb';
 
 export default function setup_app(){
   load_env()
+  buildDb()
 
   const app = new Koa();
   const root_router = new Router();

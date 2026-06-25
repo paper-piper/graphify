@@ -6,10 +6,10 @@ export function hasCycle(adj: AdjacencyList): boolean {
 
         const already_visited = visited.has(node);
         if (!already_visited){
-            const [node_neighbors, circle_neighborhood] = isCircleNeighborhood(adj, node);
-            node_neighbors.forEach(neighbor => visited.add(neighbor));
+            const [node_degrees, circle_component] = isCircleComponent(adj, node);
+            node_degrees.forEach(component => visited.add(component));
 
-            if (circle_neighborhood){
+            if (circle_component){
                 return true;
             }
         }
@@ -18,7 +18,7 @@ export function hasCycle(adj: AdjacencyList): boolean {
     return false;
 }
 
-function isCircleNeighborhood(
+function isCircleComponent(
   adj: AdjacencyList,
   current_node: NodeId,
   visited: NodeId[] = [],
@@ -35,8 +35,8 @@ function isCircleNeighborhood(
 
     visited.push(current_node);
 
-    for (const neighbor of adj.get(current_node)!){
-        const [, foundCycle] = isCircleNeighborhood(adj, neighbor, [...visited]);
+    for (const degree of adj.get(current_node)!){
+        const [, foundCycle] = isCircleComponent(adj, degree, [...visited]);
         if (foundCycle){
             return [visited, true]
         }

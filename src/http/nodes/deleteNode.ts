@@ -1,8 +1,8 @@
-import { NoResultError } from 'kysely';
 import { z } from 'zod';
 import { DeleteNodeService } from './services/DeleteNodeService';
 import { node_title_z } from '../schemas';
 import { HTTP_STATUS } from '../httpStatus';
+import { NODE_STATUS } from './nodeStatus';
 import { Context } from 'koa';
 
 export async function deleteNode(ctx: Context){
@@ -14,17 +14,14 @@ export async function deleteNode(ctx: Context){
     }
     const { node_title } = parsed.data;
     try {
-        const found: boolean = await DeleteNodeService(node_title);
-        if (found){
+        const status = await DeleteNodeService(node_title);
+        if (status === NODE_STATUS.DELETED) {
             ctx.status = HTTP_STATUS.NO_CONTENT;
-        }
-        else{
+        } else {
             ctx.status = HTTP_STATUS.NOT_FOUND;
             ctx.body = { error: 'Node does not exist' };
         }
-    } catch (err) {
-        console.log("Error while trying to delete node")
-        console.log(err)
+    } catch {
         ctx.status = HTTP_STATUS.INTERNAL_SERVER_ERROR;
         ctx.body = { error: 'Failed to delete node' };
     }

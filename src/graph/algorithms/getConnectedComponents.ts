@@ -5,10 +5,10 @@ export function getConnectedComponents(adj: AdjacencyList): NodeId[][] {
 
     for (const [node, _] of adj) {
 
-        const already_present = components.some(arr => arr.includes(node))
+        const already_present = components.some(arr => arr.includes(node));
         if (!already_present){
-            const neighborhood = getNeighborhood(adj, node)
-            components.push(neighborhood)
+            const neighborhood = getNeighborhood(adj, node);
+            components.push(neighborhood);
         }
     };
 
@@ -21,13 +21,13 @@ function getNeighborhood(
   visited: NodeId[] = []
 ): NodeId[] {
     if (visited.includes(node)){
-        return visited
+        return visited;
     }
 
-    visited.push(node)
+    visited.push(node);
 
     adj.get(node)!.forEach(neighbor => {
-        getNeighborhood(adj, neighbor, visited)
+        getNeighborhood(adj, neighbor, visited);
     });
 
     return visited;

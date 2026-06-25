@@ -7,7 +7,9 @@ import { Context } from 'koa';
 
 export async function getAllPathsHandler(ctx: Context) {
     const data = validateRequest(paths_query_z, ctx.query, ctx);
-    if (!data) return;
+    if (!data) {
+        return;
+    }
     try {
         const [paths, status] = await GetAllPathsService(data.source_node_title, data.target_node_title);
         handleQueryStatus(status, ctx, { paths });

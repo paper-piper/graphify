@@ -5,7 +5,7 @@ import { db } from "../../buildDb";
 export async function buildAdjacencyList(): Promise<AdjacencyList>
 {
   const adj: AdjacencyList = new Map();
-  const [nodes, edges] = await get_nodes_and_edges();
+  const [nodes, edges] = await getNodesAndEdges();
 
   nodes.forEach(node => {
     adj.set(node.id, new Set());
@@ -18,7 +18,7 @@ export async function buildAdjacencyList(): Promise<AdjacencyList>
   return adj;
 }
 
-async function get_nodes_and_edges(): Promise<[Node[], Edge[]]> {
+async function getNodesAndEdges(): Promise<[Node[], Edge[]]> {
     const nodes = await db.selectFrom('nodes').selectAll().execute() as Node[];
     const edges = await db.selectFrom('edges').selectAll().execute() as Edge[];
 

@@ -12,8 +12,9 @@ export async function GetAllPathsService(
 ): Promise<[NodeTitle[][], QueryStatus]> {
     const adj: AdjacencyList = await buildAdjacencyList();
     const [source_node_id, target_node_id] = await titleToId(source_node_title, target_node_title);
-    if (source_node_id === null || target_node_id === null)
+    if (source_node_id === null || target_node_id === null) {
         return [[], QUERY_STATUS.NODE_NOT_FOUND];
+    }
 
     const id_paths = getAllPaths(adj, source_node_id, target_node_id);
     const title_paths: NodeTitle[][] = [];

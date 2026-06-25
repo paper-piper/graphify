@@ -7,7 +7,9 @@ import { Context } from 'koa';
 
 export async function deleteNode(ctx: Context){
     const data = validateRequest(node_title_z, ctx.params, ctx);
-    if (!data) return;
+    if (!data) {
+        return;
+    }
     try {
         const status = await DeleteNodeService(data.node_title);
         handleNodeStatus(status, ctx);

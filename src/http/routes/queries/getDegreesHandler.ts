@@ -7,7 +7,9 @@ import { Context } from 'koa';
 
 export async function getDegreesHandler(ctx: Context){
     const data = validateRequest(node_title_z, ctx.params, ctx);
-    if (!data) return;
+    if (!data) {
+        return;
+    }
     try {
         const [degrees, status] = await GetDegreesService(data.node_title);
         handleQueryStatus(status, ctx, { node: data.node_title, neighbors: degrees });

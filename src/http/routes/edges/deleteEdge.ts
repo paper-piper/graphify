@@ -7,7 +7,9 @@ import { Context } from 'koa';
 
 export async function deleteEdge(ctx: Context){
     const data = validateRequest(edge_z, ctx.params, ctx);
-    if (!data) return;
+    if (!data) {
+        return;
+    }
     try {
         const status = await DeleteEdgeService(data.source_node_title, data.target_node_title);
         handleEdgeStatus(status, ctx);

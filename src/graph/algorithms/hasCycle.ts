@@ -26,19 +26,20 @@ function isCircleComponent(
 
     if (visited.includes(current_node)){
 
-        const double_node_circle: boolean = current_node === visited[visited.length -2]
-        if (double_node_circle)
+        const double_node_circle: boolean = current_node === visited[visited.length -2];
+        if (double_node_circle) {
             return [visited, false];
-        else
-            return [visited, true]
+        } else {
+            return [visited, true];
+        }
     }
 
     visited.push(current_node);
 
     for (const degree of adj.get(current_node)!){
-        const [, foundCycle] = isCircleComponent(adj, degree, [...visited]);
-        if (foundCycle){
-            return [visited, true]
+        const [, found_cycle] = isCircleComponent(adj, degree, [...visited]);
+        if (found_cycle){
+            return [visited, true];
         }
     }
 

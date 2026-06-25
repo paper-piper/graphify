@@ -1,5 +1,5 @@
 import { NodeTitle } from '../../../../types';
-import { delete_node } from '../../../../db/services/nodes/deleteNode';
+import { deleteNode } from '../../../../db/services/nodes/deleteNode';
 import { titleToId } from '../../../../db/services/resolvers/titleToId';
 import { NODE_STATUS, DeleteNodeStatus } from '../status/statuses';
 
@@ -8,6 +8,9 @@ export async function DeleteNodeService(node_title: NodeTitle): Promise<DeleteNo
     if (node_id === null) {
         return NODE_STATUS.NOT_FOUND;
     }
-    const found = await delete_node(node_id);
-    return found ? NODE_STATUS.DELETED : NODE_STATUS.NOT_FOUND;
+    const found = await deleteNode(node_id);
+    if (found) {
+        return NODE_STATUS.DELETED;
+    }
+    return NODE_STATUS.NOT_FOUND;
 }

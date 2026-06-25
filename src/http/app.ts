@@ -1,9 +1,9 @@
 import Koa from 'koa';
 import Router from '@koa/router';
 import bodyParser from '@koa/bodyparser';
-import { nodesRouter } from './nodes/nodesRouter';
-import { edgesRouter } from './edges/edgesRouter';
-import { queriesRouter } from './queries/queriesRouter';
+import { nodesRouter } from './routes/nodes/nodesRouter';
+import { edgesRouter } from './routes/edges/edgesRouter';
+import { queriesRouter } from './routes/queries/queriesRouter';
 import { load_env } from '../env/load_env';
 import { buildDb } from '../db/buildDb';
 

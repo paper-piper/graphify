@@ -1,4 +1,4 @@
-import { HTTP_STATUS } from '../../../httpStatus';
+import { HTTP_STATUS } from '../../sharedStatus/httpStatus';
 
 export const QUERY_STATUS = {
     OK: 'ok',

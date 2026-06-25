@@ -1,6 +1,6 @@
 import z from 'zod';
 import { Context } from 'koa';
-import { HTTP_STATUS } from '../../httpStatus';
+import { HTTP_STATUS } from '../sharedStatus/httpStatus';
 
 export function validateRequest<T>(schema: z.ZodType<T>, data: unknown, ctx: Context): T | null {
     const parsed = schema.safeParse(data);

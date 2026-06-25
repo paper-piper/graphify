@@ -1,4 +1,4 @@
-import { HTTP_STATUS } from '../../../httpStatus';
+import { HTTP_STATUS } from '../../sharedStatus/httpStatus';
 
 export const NODE_STATUS = {
     CREATED: 'created',

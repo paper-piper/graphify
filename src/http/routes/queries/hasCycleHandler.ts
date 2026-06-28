@@ -1,8 +1,8 @@
 import { handleQueryStatus } from './status/mapper';
 import { handleServerError } from '../sharedStatus/serverError';
 import { QUERY_STATUS } from './status/statuses';
-import { hasCycle } from '../../../graph/algorithms/hasCycle';
-import { AdjacencyList } from '../../../graph/types';
+import { hasCycle } from '../../../algorithms/hasCycle';
+import { AdjacencyList } from '../../../algorithms/types';
 import { buildAdjacencyList } from '../../../db/services/queries/buildAdjacencyList';
 import { Context } from 'koa';
 

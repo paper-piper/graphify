@@ -9,8 +9,10 @@ export async function DeleteEdgeService(source_node_title: NodeTitle, target_nod
         return EDGE_STATUS.NODE_NOT_FOUND;
     }
     const found = await deleteEdge(source_node_id, target_node_id);
-    if (found) {
+    if (!found) {
+        return EDGE_STATUS.EDGE_NOT_FOUND;
+    }
+    else{
         return EDGE_STATUS.DELETED;
     }
-    return EDGE_STATUS.EDGE_NOT_FOUND;
 }

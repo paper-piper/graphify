@@ -19,5 +19,7 @@ export const node_status_to_http_map = new Map<NodeStatus, number>([
 ]);
 
 export const node_status_to_body = new Map<NodeStatus, object>([
+    [NODE_STATUS.CREATED, { message: 'Node created successfully' }],
+    [NODE_STATUS.DELETED, { message: 'Node deleted successfully' }],
     [NODE_STATUS.NOT_FOUND, { error: 'Node does not exist' }],
 ]);

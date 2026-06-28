@@ -1,5 +1,5 @@
-import { getDegrees } from '../../../../graph/algorithms/getDegrees';
-import { AdjacencyList } from '../../../../graph/types';
+import { getDegrees } from '../../../../algorithms/getDegrees';
+import { AdjacencyList } from '../../../../algorithms/types';
 import { buildAdjacencyList } from '../../../../db/services/queries/buildAdjacencyList';
 import { NodeTitle } from '../../../../types';
 import { titleToId } from '../../../../db/services/resolvers/titleToId';

@@ -1,4 +1,4 @@
-import { AdjacencyList } from "../../../graph/types";
+import { AdjacencyList } from "../../../algorithms/types";
 import { Edge, Node } from "../../../types";
 import { db } from "../../buildDb";
 

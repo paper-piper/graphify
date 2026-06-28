@@ -1,5 +1,5 @@
-import { getAllPaths } from '../../../../graph/algorithms/getAllPaths';
-import { AdjacencyList } from '../../../../graph/types';
+import { getAllPaths } from '../../../../algorithms/getAllPaths';
+import { AdjacencyList } from '../../../../algorithms/types';
 import { NodeTitle, NodeId } from '../../../../types';
 import { buildAdjacencyList } from '../../../../db/services/queries/buildAdjacencyList';
 import { titleToId } from '../../../../db/services/resolvers/titleToId';

@@ -1,9 +1,9 @@
 import Koa from 'koa';
 import Router from '@koa/router';
 import bodyParser from '@koa/bodyparser';
-import { nodesRouter } from './routes/nodes/nodesRouter';
+import { createNodesRouter } from './routes/nodes/nodesRouter';
 import { edgesRouter } from './routes/edges/edgesRouter';
-import { queriesRouter } from './routes/queries/queriesRouter';
+import { createQueriesRouter } from './routes/queries/queriesRouter';
 import { loadEnv } from '../env/load_env';
 import { buildDb } from '../db/buildDb';
 
@@ -16,9 +16,9 @@ export default function setupApp(){
 
   app.use(bodyParser());
 
-  root_router.use('/nodes', nodesRouter.routes());
+  root_router.use('/nodes', createNodesRouter().routes());
   root_router.use('/edges', edgesRouter.routes());
-  root_router.use('/queries', queriesRouter.routes());
+  root_router.use('/queries', createQueriesRouter().routes());
 
   app.use(root_router.routes());
   app.use(root_router.allowedMethods());

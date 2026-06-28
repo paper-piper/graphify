@@ -1,4 +1,4 @@
-import { AdjacencyList, NodeId } from "../types";
+import { AdjacencyList, NodeId } from "./types";
 
 export function getAllPaths(
     adj: AdjacencyList,

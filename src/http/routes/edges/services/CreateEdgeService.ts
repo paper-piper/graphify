@@ -9,8 +9,10 @@ export async function CreateEdgeService(source_node_title: NodeTitle, target_nod
         return EDGE_STATUS.NODE_NOT_FOUND;
     }
     const success = await createEdge(source_node_id, target_node_id);
-    if (success) {
+    if (!success) {
+        return EDGE_STATUS.ALREADY_EXISTS;
+    }   
+    else{
         return EDGE_STATUS.CREATED;
     }
-    return EDGE_STATUS.ALREADY_EXISTS;
 }

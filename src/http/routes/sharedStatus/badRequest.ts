@@ -1,4 +1,4 @@
-import { HTTP_STATUS } from '../sharedStatus/httpStatus';
+import { HTTP_STATUS } from './httpStatus';
 import z from 'zod'
 import { Context } from 'koa';
 

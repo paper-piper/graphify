@@ -17,5 +17,3 @@ export function buildDb(){
     })
   });
 }
-
-// TODO: db api

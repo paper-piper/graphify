@@ -39,3 +39,10 @@ done
 
 echo
 echo "Done."
+
+# ─── Regenerate Kysely types ──────────────────────────────────────────────────
+
+echo "Regenerating DB types..."
+DATABASE_URL="postgres://$DB_USER:$DB_PASSWORD@$DB_HOST:$DB_PORT/$DATABASE" \
+  npx kysely-codegen --dialect postgres --url "$DATABASE_URL" --out-file "$SCRIPT_DIR/../src/db/schema.ts"
+echo "Types updated."

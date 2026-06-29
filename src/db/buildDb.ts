@@ -1,11 +1,11 @@
 import { Kysely, PostgresDialect } from 'kysely'
 import { Pool } from 'pg'
-import { Database } from './schema'
+import { DB } from './schema'
 
-export let db: Kysely<Database>;
+export let db: Kysely<DB>;
 
 export function buildDb(){
-  db = new Kysely<Database>({
+  db = new Kysely<DB>({
   dialect: new PostgresDialect({
     pool: new Pool({
       host: process.env.DB_HOST,
@@ -18,3 +18,4 @@ export function buildDb(){
   });
 }
 
+// TODO: db api

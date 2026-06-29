@@ -4,13 +4,17 @@
   "scripts": {
     "dev": "ts-node -r tsconfig-paths/register src/server.ts",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "generate:db": "dotenv -e .env -- kysely-codegen --dialect postgres --url $DATABASE_URL --out-file src/db/schema.ts"  
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
     "@types/koa": "^3.0.3",
     "@types/pg": "^8.20.0",
     "@types/supertest": "^7.2.0",
+    "dotenv-cli": "^11.0.0",
+    "kysely-codegen": "^0.20.0",
+    "pg": "^8.22.0",
     "supertest": "^7.2.2",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
@@ -24,7 +28,6 @@
     "express": "^5.2.1",
     "koa": "^3.2.1",
     "kysely": "^0.29.2",
-    "pg": "^8.21.0",
     "zod": "^4.4.3"
   }
 }

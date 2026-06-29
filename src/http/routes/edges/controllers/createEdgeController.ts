@@ -7,7 +7,7 @@ import { HTTP_STATUS } from '@/http/shared/status/httpStatus';
 export async function createEdgeController(ctx: Context){
     const { source_node_title, target_node_title } = ctx.state.validated.body
 
-    const [source_node_id, target_node_id] = await NodeRepository.findByTitles(source_node_title, target_node_title);
+    const [source_node_id, target_node_id] = await NodeRepository.TitleToId(source_node_title, target_node_title);
     if (source_node_id === null || target_node_id === null) {
         throw new NotFoundError("One or more nodes doesn't exist")
     }

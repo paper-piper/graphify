@@ -19,7 +19,7 @@ export const NodeRepository = {
             .executeTakeFirst();
     },
 
-    async findByTitles(...titles: NodeTitle[]): Promise<(NodeId | null)[]> {
+    async TitleToId(...titles: NodeTitle[]): Promise<(NodeId | null)[]> {
         const nodes = await db
             .selectFrom('nodes')
             .select(['nodes.id', 'nodes.title'])
@@ -30,7 +30,7 @@ export const NodeRepository = {
         return titles.map(title => title_to_id.get(title) ?? null);
     },
 
-    async findByIds(...ids: NodeId[]): Promise<NodeTitle[]> {
+    async IdToTitle(...ids: NodeId[]): Promise<NodeTitle[]> {
         const nodes = await db
             .selectFrom('nodes')
             .select(['nodes.title', 'nodes.id'])

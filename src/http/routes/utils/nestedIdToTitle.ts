@@ -4,7 +4,7 @@ import { NodeId, NodeTitle } from "@/types";
 export async function nestedIdToTitle(id_nested_list: NodeId[][]): Promise<NodeTitle[][]>{
     const title_nested_list: NodeTitle[][] = [];
     for (const id_list of id_nested_list) {
-        const title_list = await NodeRepository.findByIds(...id_list);
+        const title_list = await NodeRepository.IdToTitle(...id_list);
         title_nested_list.push(title_list);
     }
 

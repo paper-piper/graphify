@@ -6,7 +6,7 @@ import { HTTP_STATUS } from '@/http/shared/status/httpStatus';
 export async function deleteNodeController(ctx: Context) {
     const { node_title } = ctx.state.validated.params;
 
-    const [node_id] = await NodeRepository.findByTitles(node_title);
+    const [node_id] = await NodeRepository.TitleToId(node_title);
     if (node_id === null) {
         throw new NotFoundError("Node doesn't exist");
     }

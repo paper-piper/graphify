@@ -4,7 +4,7 @@ import z from "zod";
 
 type Source = 'body' | 'query' | 'params';
 
-export function validate(schema: z.ZodType, source: Source = 'body') {
+export function validate(schema: z.ZodType, source: Source) {
   return async (ctx: Context, next: Next) => {
     const data = getRequestData(ctx, source);
     const result = schema.safeParse(data);

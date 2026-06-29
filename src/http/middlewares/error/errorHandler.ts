@@ -1,5 +1,5 @@
 import { Context, Next } from "koa";
-import { HTTP_STATUS } from "../../routes/shared/httpStatus";
+import { HTTP_STATUS } from "../../shared/status/httpStatus";
 import { HttpError } from "./http_error";
 
 export async function handleErrors(ctx: Context, next: Next): Promise<void>{

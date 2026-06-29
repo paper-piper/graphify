@@ -5,7 +5,7 @@ import { NodeTitle } from '@/types';
 import { GraphRepository } from '@/repositories/GraphRepository';
 import { NodeRepository } from '@/repositories/NodeRepository';
 import { NotFoundError } from '@/http/middlewares/error/http_error';
-import { HTTP_STATUS } from '@/http/routes/shared/httpStatus';
+import { HTTP_STATUS } from '@/http/shared/status/httpStatus';
 
 export async function getDegreesController(ctx: Context) {
     const { node_title } = ctx.state.validated.params;

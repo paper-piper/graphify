@@ -1,4 +1,4 @@
-import { HTTP_STATUS } from "../../routes/shared/httpStatus";
+import { HTTP_STATUS } from "../../shared/status/httpStatus";
 
 export class HttpError extends Error {
   status: number;

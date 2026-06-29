@@ -2,7 +2,7 @@ import { Context } from 'koa';
 import { NodeRepository } from '@/repositories/NodeRepository';
 import { EdgeRepository } from '@/repositories/EdgeRepository';
 import { NotFoundError, ConflictError } from '@/http/middlewares/error/http_error';
-import { HTTP_STATUS } from '@/http/routes/shared/httpStatus';
+import { HTTP_STATUS } from '@/http/shared/status/httpStatus';
 
 export async function createEdgeController(ctx: Context){
     const { source_node_title, target_node_title } = ctx.state.validated.body

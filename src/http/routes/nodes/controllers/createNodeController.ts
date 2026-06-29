@@ -1,6 +1,6 @@
 import { Context } from 'koa';
 import { NodeRepository } from '@/repositories/NodeRepository';
-import { HTTP_STATUS } from '@/http/routes/shared/httpStatus';
+import { HTTP_STATUS } from '@/http/shared/status/httpStatus';
 
 export async function createNodeController(ctx: Context) {
     const node_id = await NodeRepository.create();

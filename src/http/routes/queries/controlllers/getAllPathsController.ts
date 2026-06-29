@@ -5,8 +5,8 @@ import { NodeTitle } from '@/types';
 import { GraphRepository } from '@/repositories/GraphRepository';
 import { NodeRepository } from '@/repositories/NodeRepository';
 import { NotFoundError } from '@/http/middlewares/error/http_error';
-import { HTTP_STATUS } from '@/http/routes/shared/httpStatus';
-import { nestedIdToTitle } from '@/http/routes/shared/utils/nestedIdToTitle';
+import { HTTP_STATUS } from '@/http/shared/status/httpStatus';
+import { nestedIdToTitle } from '@/http/routes/utils/nestedIdToTitle';
 
 export async function getAllPathsController(ctx: Context) {
     const { source_node_title, target_node_title } = ctx.state.validated.query;

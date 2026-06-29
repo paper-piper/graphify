@@ -6,6 +6,7 @@ import { createQueriesRouter } from './http/routes/queries/queriesRouter';
 import { loadEnv } from './env/load_env';
 import { buildDb } from './db/buildDb';
 import { handleErrors } from './http/middlewares/error/errorHandler';
+import { log_requests } from './http/middlewares/logging/log';
 
 export default function setupApp(){
   loadEnv();
@@ -14,6 +15,7 @@ export default function setupApp(){
   const app = new Koa();
   const root_router = new Router();
 
+  app.use(log_requests)
   app.use(handleErrors);
 
   root_router.use('/nodes', createNodesRouter().routes());

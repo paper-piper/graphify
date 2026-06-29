@@ -1,0 +1,8 @@
+{"level":30,"time":1782741532150,"pid":20087,"hostname":"Lia-Reicherts-MacBook-Pro.local","msg":"POST /nodes 201 - 326ms"}
+{"level":30,"time":1782741537108,"pid":20087,"hostname":"Lia-Reicherts-MacBook-Pro.local","msg":"POST /nodes 201 - 9ms"}
+{"level":40,"time":1782741540039,"pid":20087,"hostname":"Lia-Reicherts-MacBook-Pro.local","msg":"DELETE /nodes/9 404 - 3ms"}
+{"level":40,"time":1782741542878,"pid":20087,"hostname":"Lia-Reicherts-MacBook-Pro.local","msg":"DELETE /nodes/11 404 - 1ms"}
+{"level":40,"time":1782741547073,"pid":20087,"hostname":"Lia-Reicherts-MacBook-Pro.local","msg":"DELETE /nodes/12 404 - 2ms"}
+{"level":40,"time":1782741552398,"pid":20087,"hostname":"Lia-Reicherts-MacBook-Pro.local","msg":"DELETE /nodes/16 404 - 2ms"}
+{"level":30,"time":1782741555195,"pid":20087,"hostname":"Lia-Reicherts-MacBook-Pro.local","msg":"POST /nodes 201 - 8ms"}
+{"level":30,"time":1782741561629,"pid":20087,"hostname":"Lia-Reicherts-MacBook-Pro.local","msg":"DELETE /nodes/8 204 - 9ms"}

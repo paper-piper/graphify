@@ -5,7 +5,7 @@
     "dev": "ts-node -r tsconfig-paths/register src/server.ts",
     "test": "vitest run",
     "test:watch": "vitest",
-    "generate:db": "dotenv -e .env -- kysely-codegen --dialect postgres --url $DATABASE_URL --out-file src/db/schema.ts"  
+    "generate:db": "dotenv -e .env -- kysely-codegen --dialect postgres --url $DATABASE_URL --out-file src/db/schema.ts"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
@@ -28,6 +28,7 @@
     "express": "^5.2.1",
     "koa": "^3.2.1",
     "kysely": "^0.29.2",
+    "pino": "^10.3.1",
     "zod": "^4.4.3"
   }
 }

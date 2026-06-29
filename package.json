@@ -2,7 +2,7 @@
   "name": "graphify",
   "version": "1.0.0",
   "scripts": {
-    "dev": "ts-node src/http/server.ts",
+    "dev": "ts-node -r tsconfig-paths/register src/server.ts",
     "test": "vitest run",
     "test:watch": "vitest"
   },
@@ -13,6 +13,7 @@
     "@types/supertest": "^7.2.0",
     "supertest": "^7.2.2",
     "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.4.0",
     "vitest": "^4.1.9"
   },

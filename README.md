@@ -8,6 +8,7 @@ A REST API for storing and querying an undirected graph. Nodes and edges are per
 - **HTTP**: Koa + @koa/router
 - **Database**: PostgreSQL via Kysely
 - **Validation**: Zod
+- **Testing**: Vitest + Supertest
 
 ## Setup
 
@@ -28,15 +29,21 @@ SERVER_PORT=3000
 ### 2. Run migrations
 
 ```bash
-sh scripts/apply_migrations.sh
+sh src/scripts/apply_migrations.sh
 ```
 
-This runs all `.sql` files in `src/db/migrations/` in order. To also seed with sample data, include `9.0.0_seed.sql` (it is run automatically as part of the sequence).
+This runs all `.sql` files in `src/db/migrations/` in order, including `9.0.0_seed.sql` which seeds sample data.
 
 ### 3. Start the server
 
 ```bash
 npm run dev
+```
+
+### Running tests
+
+```bash
+npm test
 ```
 
 ## API
@@ -70,6 +77,8 @@ Edges are undirected. The graph treats `(A→B)` and `(B→A)` as the same conne
 
 ```
 src/
+├── algorithms/           # getAllPaths, hasCycle, getDegrees, getConnectedComponents
+│   └── types.ts          # AdjacencyList type
 ├── db/
 │   ├── migrations/       # SQL migration files (run in filename order)
 │   ├── services/
@@ -82,18 +91,17 @@ src/
 ├── env/
 │   ├── load_env.ts       # Validates and loads .env
 │   └── schema.ts         # Zod schema for env vars
-├── graph/
-│   ├── algorithms/       # getAllPaths, hasCycle, getDegrees, getConnectedComponents
-│   └── types.ts          # AdjacencyList type
 ├── http/
 │   ├── routes/
 │   │   ├── edges/        # Route handlers + services + status maps
 │   │   ├── nodes/        # Route handlers + services + status maps
 │   │   ├── queries/      # Route handlers + services + status maps
-│   │   ├── sharedStatus/ # HTTP status codes, shared error handler
-│   │   └── validation/   # Zod schemas + validateRequest helper
+│   │   ├── sharedStatus/ # Shared HTTP status helpers
+│   │   └── schemas.ts    # Zod request schemas
 │   ├── app.ts            # Koa app setup
 │   └── server.ts         # Entry point
+├── scripts/
+│   └── apply_migrations.sh
 └── types.ts              # NodeId, NodeTitle, Node, Edge
 ```
 

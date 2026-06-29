@@ -6,6 +6,6 @@ export function loadEnv(){
     const result = envSchema.safeParse(process.env);
 
     if (!result.success) {
-    throw new Error(`Invalid environment variables.`);
+        throw new Error(`Invalid environment variables.`);
     }
 }

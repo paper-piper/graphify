@@ -1,5 +1,7 @@
 import { Generated } from 'kysely'
 
+//TODO kysely codegen
+
 export interface NodesTable {
   id: Generated<string>  
   title: Generated<number>

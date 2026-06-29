@@ -1,5 +1,5 @@
-import { NodeRepository } from "@/repositories/NodeRepository";
-import { NodeId, NodeTitle } from "../../../../types";
+import { NodeRepository } from "@/db/repositories/NodeRepository";
+import { NodeId, NodeTitle } from "@/types";
 
 export async function nestedIdToTitle(id_nested_list: NodeId[][]): Promise<NodeTitle[][]>{
     const title_nested_list: NodeTitle[][] = [];

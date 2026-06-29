@@ -1,6 +1,6 @@
 import { Context } from 'koa';
-import { NodeRepository } from '@/repositories/NodeRepository';
-import { EdgeRepository } from '@/repositories/EdgeRepository';
+import { NodeRepository } from '@/db/repositories/NodeRepository';
+import { EdgeRepository } from '@/db/repositories/EdgeRepository';
 import { NotFoundError, ConflictError } from '@/http/middlewares/error/http_error';
 import { HTTP_STATUS } from '@/http/shared/status/httpStatus';
 

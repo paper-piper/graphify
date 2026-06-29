@@ -2,7 +2,7 @@ import { Context } from 'koa';
 import { getConnectedComponents } from '@/algorithms/getConnectedComponents';
 import { AdjacencyList } from '@/algorithms/types';
 import { NodeId, NodeTitle } from '@/types';
-import { GraphRepository } from '@/repositories/GraphRepository';
+import { GraphRepository } from '@/db/repositories/GraphRepository';
 import { HTTP_STATUS } from '@/http/shared/status/httpStatus';
 import { nestedIdToTitle } from '@/http/routes/utils/nestedIdToTitle';
 

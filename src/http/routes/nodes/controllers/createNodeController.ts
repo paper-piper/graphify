@@ -1,5 +1,5 @@
 import { Context } from 'koa';
-import { NodeRepository } from '@/repositories/NodeRepository';
+import { NodeRepository } from '@/db/repositories/NodeRepository';
 import { HTTP_STATUS } from '@/http/shared/status/httpStatus';
 
 export async function createNodeController(ctx: Context) {

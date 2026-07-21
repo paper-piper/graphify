@@ -1,4 +1,4 @@
-import { BadRequestError } from "../error/http_error";
+import { BadRequestError } from "../../shared/error/http_error";
 import { Context, Next } from "koa";
 import z from "zod";
 

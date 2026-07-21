@@ -1,6 +1,6 @@
 import { sql } from "kysely";
 import { db } from "@/db/buildDb";
-import { NodeId } from "@/types";
+import { NodeId } from "@/shared/types";
 
 export const EdgeRepository = {
     async create(source_node_id: NodeId, target_node_id: NodeId): Promise<boolean> {

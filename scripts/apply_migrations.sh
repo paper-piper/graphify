@@ -1,8 +1,6 @@
 #!/bin/sh
 set -eu
 
-# ─── Load environment ─────────────────────────────────────────────────────────
-
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ENV_FILE="$SCRIPT_DIR/../.env"
 
@@ -13,12 +11,8 @@ fi
 
 . "$ENV_FILE"
 
-# ─── Configuration ────────────────────────────────────────────────────────────
-
 export PGPASSWORD="$DB_PASSWORD"
 MIGRATIONS_DIR="$SCRIPT_DIR/../src/db/migrations"
-
-# ─── Run ──────────────────────────────────────────────────────────────────────
 
 echo "Connecting to $DB_USER@$DB_HOST:$DB_PORT/$DATABASE"
 echo "Running migrations from: $MIGRATIONS_DIR"

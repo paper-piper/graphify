@@ -1,6 +1,5 @@
 import { db } from "@/db/buildDb";
-import { AdjacencyList } from "@/algorithms/types";
-import { Edge, Node } from "@/types";
+import { AdjacencyList, Edge, Node } from "@/shared/types";
 
 export const GraphRepository = {
     async buildAdjacencyList(): Promise<AdjacencyList> {

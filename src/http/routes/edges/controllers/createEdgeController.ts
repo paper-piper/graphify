@@ -1,7 +1,7 @@
 import { Context } from 'koa';
 import { NodeRepository } from '@/db/repositories/NodeRepository';
 import { EdgeRepository } from '@/db/repositories/EdgeRepository';
-import { NotFoundError, ConflictError } from '@/http/middlewares/error/http_error';
+import { NotFoundError, ConflictError } from '@/http/shared/error/http_error';
 import { HTTP_STATUS } from '@/http/shared/status/httpStatus';
 
 export async function createEdgeController(ctx: Context){

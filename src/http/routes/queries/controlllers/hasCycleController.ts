@@ -1,6 +1,6 @@
 import { Context } from 'koa';
 import { hasCycle } from '@/algorithms/hasCycle';
-import { AdjacencyList } from '@/algorithms/types';
+import { AdjacencyList } from '@/shared/types';
 import { GraphRepository } from '@/db/repositories/GraphRepository';
 import { HTTP_STATUS } from '@/http/shared/status/httpStatus';
 

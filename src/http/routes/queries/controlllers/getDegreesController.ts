@@ -1,10 +1,9 @@
 import { Context } from 'koa';
 import { getDegrees } from '@/algorithms/getDegrees';
-import { AdjacencyList } from '@/algorithms/types';
-import { NodeTitle } from '@/types';
+import { AdjacencyList, NodeTitle } from '@/shared/types';
 import { GraphRepository } from '@/db/repositories/GraphRepository';
 import { NodeRepository } from '@/db/repositories/NodeRepository';
-import { NotFoundError } from '@/http/middlewares/error/http_error';
+import { NotFoundError } from '@/http/shared/error/http_error';
 import { HTTP_STATUS } from '@/http/shared/status/httpStatus';
 
 export async function getDegreesController(ctx: Context) {

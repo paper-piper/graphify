@@ -1,6 +1,6 @@
 import { bodyParser } from "@koa/bodyparser";
 import { Context, Next } from "koa";
-import { BadRequestError } from "../error/http_error";
+import { BadRequestError } from "@/http/shared/error/http_error";
 const parser = bodyParser();
 
 export async function parseBody(ctx: Context, next: Next) {

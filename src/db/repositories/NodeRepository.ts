@@ -1,6 +1,6 @@
 import { sql } from "kysely";
 import { db } from "@/db/buildDb";
-import { NodeId, NodeTitle } from "@/types";
+import { NodeId, NodeTitle } from "@/shared/types";
 
 export const NodeRepository = {
     async create(): Promise<NodeId> {
